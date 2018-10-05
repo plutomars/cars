@@ -3,12 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SelectionActivity">
+    tools:context=".ListActivity">
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:divider="#ffff0000"
+        android:dividerHeight="10dp"
+        >
     </android.support.v7.widget.RecyclerView>
 </LinearLayout>

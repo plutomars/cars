@@ -8,18 +8,20 @@ import android.util.Log;
 
 import Adapter.CategoryAdapter;
 import Model.CategorySingleton;
+import Model.DividerItemDecoration;
 
-public class SelectionActivity extends AppCompatActivity {
-    private static final String TAG="SelectionActivity";
+public class ListActivity extends AppCompatActivity {
+    private static final String TAG="ListActivity";
     private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_selection);
+        setContentView(R.layout.activity_list);
         recyclerView = (RecyclerView)findViewById(R.id.recyclerListView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         Log.d(TAG,"create a recyclerview");
+        recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST));
         CategorySingleton categorySingleton = CategorySingleton.getInstance(this);
         Log.d(TAG,"create a singleton");
         CategoryAdapter ca = new CategoryAdapter(this,categorySingleton.getCategoryList());

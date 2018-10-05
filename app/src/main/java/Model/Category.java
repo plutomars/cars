@@ -1,11 +1,8 @@
 package Model;
 
-public class Category {
-    //title row, type=0
-    //item row, type=1
+public class Category{
     private int mtype;
     private String mCategoryName;
-
 
     public Category(int mtype,String mCategoryName){
         this.mtype=mtype;

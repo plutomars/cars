@@ -12,6 +12,8 @@ import com.example.pluto.cars.R;
 import java.util.List;
 
 import Model.Category;
+import Model.Item_ViewHolder;
+import Model.Title_ViewHolder;
 
 public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -74,33 +76,33 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     /*
     create different type of view holder
      */
-    class Title_ViewHolder extends RecyclerView.ViewHolder{
-        private TextView mTextView;
-        public Title_ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            mTextView = (TextView)itemView.findViewById(R.id.list_title_view);
-        }
-
-        public void setText(String str){
-            mTextView.setText(str);
-        }
-    }
-
-    class Item_ViewHolder extends RecyclerView.ViewHolder{
-        private TextView mTextView;
-        public Item_ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            mTextView = (TextView)itemView.findViewById(R.id.list_item_view);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
-        }
-
-        public void setText(String str){
-            mTextView.setText(str);
-        }
-    }
+//    class Title_ViewHolder extends RecyclerView.ViewHolder{
+//        private TextView mTextView;
+//        public Title_ViewHolder(@NonNull View itemView) {
+//            super(itemView);
+//            mTextView = (TextView)itemView.findViewById(R.id.list_title_view);
+//        }
+//
+//        public void setText(String str){
+//            mTextView.setText(str);
+//        }
+//    }
+//
+//    class Item_ViewHolder extends RecyclerView.ViewHolder{
+//        private TextView mTextView;
+//        public Item_ViewHolder(@NonNull View itemView) {
+//            super(itemView);
+//            mTextView = (TextView)itemView.findViewById(R.id.list_item_view);
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+//                }
+//            });
+//        }
+//
+//        public void setText(String str){
+//            mTextView.setText(str);
+//        }
+//    }
 }

@@ -44,7 +44,6 @@ public class SearchActivity extends AppCompatActivity {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //System.out.print("You press "+position);
                 Log.d(TAG,"You press"+position);
             }
         });

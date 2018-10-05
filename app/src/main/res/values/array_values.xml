@@ -67,17 +67,25 @@
         <item>1-Volvo</item>
     </string-array>
     <string-array name="Acura_model">
-        <item>CL</item>
-        <item>ILX</item>
-        <item>MDX</item>
-        <item>NSX</item>
-        <item>RDX</item>
-        <item>RLX</item>
-        <item>RSX</item>
-        <item>SLX</item>
-        <item>TLX</item>
-        <item>TSX</item>
-        <item>ZDX</item>
+        <item>0-C</item>
+        <item>1-CL</item>
+        <item>0-I</item>
+        <item>1-ILX</item>
+        <item>0-M</item>
+        <item>1-MDX</item>
+        <item>0-N</item>
+        <item>1-NSX</item>
+        <item>0-R</item>
+        <item>1-RDX</item>
+        <item>1-RLX</item>
+        <item>1-RSX</item>
+        <item>0-S</item>
+        <item>1-SLX</item>
+        <item>0-T</item>
+        <item>1-TLX</item>
+        <item>1-TSX</item>
+        <item>0-Z</item>
+        <item>1-ZDX</item>
     </string-array>
     <string-array name="AlfoRomeo_model">
         <item>4C</item>
