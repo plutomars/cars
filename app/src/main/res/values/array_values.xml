@@ -1,98 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="Make_array">
-        <item>0-A</item>
-        <item>1-Acura</item>
-        <item>1-Alfa Romeo</item>
-        <item>1-Aston Martin</item>
-        <item>1-Audi</item>
-        <item>0-B</item>
-        <item>1-Bentley</item>
-        <item>1-BMW</item>
-        <item>1-Bugatti</item>
-        <item>1-Buick</item>
-        <item>0-C</item>
-        <item>1-Cadillac</item>
-        <item>1-Chevrolet</item>
-        <item>1-Chrysler</item>
-        <item>0-D</item>
-        <item>1-Dodge</item>
-        <item>0-F</item>
-        <item>1-Ferrari</item>
-        <item>1-FIAT</item>
-        <item>1-Ford</item>
-        <item>0-G</item>
-        <item>1-Genesis</item>
-        <item>1-GMC</item>
-        <item>0-H</item>
-        <item>1-Honda</item>
-        <item>1-Hyundai</item>
-        <item>0-I</item>
-        <item>1-INFINITI</item>
-        <item>0-J</item>
-        <item>1-Jaguar</item>
-        <item>1-Jeep</item>
-        <item>0-K</item>
-        <item>1-Kia</item>
-        <item>0-L</item>
-        <item>1-Lamborghini</item>
-        <item>1-Land Rover</item>
-        <item>1-Lexus</item>
-        <item>1-Lincoln</item>
-        <item>1-Lotus</item>
-        <item>0-M</item>
-        <item>1-Maserati</item>
-        <item>1-Maybach</item>
-        <item>1-Mazda</item>
-        <item>1-McLaren</item>
-        <item>1-Mercedes-Benz</item>
-        <item>1-Mitsubishi</item>
-        <item>1-MINI</item>
-        <item>0-N</item>
-        <item>1-Nissan</item>
-        <item>0-P</item>
-        <item>1-Porsche</item>
-        <item>0-R</item>
-        <item>1-RAM</item>
-        <item>1-Rolls-Royce</item>
-        <item>0-S</item>
-        <item>1-Saab</item>
-        <item>1-Subaru</item>
-        <item>1-Suzuki</item>
-        <item>0-T</item>
-        <item>1-Tesla</item>
-        <item>1-Toyata</item>
-        <item>0-V</item>
-        <item>1-Volkswagen</item>
-        <item>1-Volvo</item>
+    <string-array name="Search_criteria">
+        <item>Make</item>
+        <item>Model</item>
+        <item>Max Price</item>
+        <item>Mileage</item>
+        <item>Year</item>
+        <item>Color</item>
     </string-array>
-    <string-array name="Acura_model">
-        <item>0-C</item>
-        <item>1-CL</item>
-        <item>0-I</item>
-        <item>1-ILX</item>
-        <item>0-M</item>
-        <item>1-MDX</item>
-        <item>0-N</item>
-        <item>1-NSX</item>
-        <item>0-R</item>
-        <item>1-RDX</item>
-        <item>1-RLX</item>
-        <item>1-RSX</item>
-        <item>0-S</item>
-        <item>1-SLX</item>
-        <item>0-T</item>
-        <item>1-TLX</item>
-        <item>1-TSX</item>
-        <item>0-Z</item>
-        <item>1-ZDX</item>
+    <string-array name="Years">
+        <item>2000</item>
+        <item>2001</item>
+        <item>2002</item>
+        <item>2003</item>
+        <item>2004</item>
+        <item>2005</item>
+        <item>2006</item>
+        <item>2007</item>
+        <item>2008</item>
+        <item>2009</item>
+        <item>2010</item>
+        <item>2011</item>
+        <item>2012</item>
+        <item>2013</item>
+        <item>2014</item>
+        <item>2015</item>
+        <item>2016</item>
+        <item>2017</item>
+        <item>2018</item>
+        <item>2019</item>
     </string-array>
-    <string-array name="AlfoRomeo_model">
-        <item>4C</item>
-        <item>4C Spider</item>
-        <item>8C Spider</item>
-        <item>Giulia</item>
-        <item>Spider</item>
-        <item>Stelvio</item>
+    <string-array name="Max_price">
+        <item>No Max</item>
+        <item>1000</item>
+        <item>2000</item>
+        <item>3000</item>
+        <item>4000</item>
+        <item>5000</item>
+        <item>6000</item>
+        <item>7000</item>
+        <item>8000</item>
+        <item>9000</item>
+        <item>10000</item>
+        <item>15000</item>
+        <item>20000</item>
+        <item>25000</item>
+        <item>30000</item>
+        <item>35000</item>
+        <item>40000</item>
+        <item>45000</item>
+        <item>50000</item>
+        <item>60000</item>
+        <item>70000</item>
+        <item>80000</item>
+        <item>90000</item>
+        <item>100000</item>
+    </string-array>
+    <string-array name="Mileages">
+        <item>10000 or less</item>
+        <item>20000 or less</item>
+        <item>30000 or less</item>
+        <item>40000 or less</item>
+        <item>50000 or less</item>
+        <item>60000 or less</item>
+        <item>70000 or less</item>
+        <item>80000 or less</item>
+        <item>90000 or less</item>
+        <item>100000 or less</item>
+        <item>150000 or less</item>
+        <item>200000 or less</item>
+        <item>250000 or less</item>
+        <item>300000 or more</item>
     </string-array>
 </resources>

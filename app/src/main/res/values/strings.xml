@@ -3,14 +3,5 @@
     <string name="buy_button">Buy</string>
     <string name="sell_button">Sell</string>
     <string name="welcome_txt">Welcome to Car</string>
-
-
-    <string-array name="Search_criteria">
-        <item>Make</item>
-        <item>Model</item>
-        <item>Max Price</item>
-        <item>Location</item>
-    </string-array>
     <string name="title_activity_selection_list">SelectionListActivity</string>
-
 </resources>

@@ -9,15 +9,15 @@ import android.util.Log;
 import Adapter.CategoryAdapter;
 import Model.CategorySingleton;
 
-public class DetailActivity extends AppCompatActivity {
+public class ModelActivity extends AppCompatActivity {
 
-    private static final String TAG="DetailActivity";
+    private static final String TAG="ModelActivity";
     private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_model);
         recyclerView = (RecyclerView)findViewById(R.id.recyclerListView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         Log.d(TAG,"create a recyclerview");

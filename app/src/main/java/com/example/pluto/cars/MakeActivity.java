@@ -10,14 +10,14 @@ import Adapter.CategoryAdapter;
 import Model.CategorySingleton;
 import Model.DividerItemDecoration;
 
-public class ListActivity extends AppCompatActivity {
-    private static final String TAG="ListActivity";
+public class MakeActivity extends AppCompatActivity {
+    private static final String TAG="MakeActivity";
     private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list);
+        setContentView(R.layout.activity_make);
         recyclerView = (RecyclerView)findViewById(R.id.recyclerListView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         Log.d(TAG,"create a recyclerview");
