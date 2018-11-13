@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Model.Category;
+import SQLite.model.CarImage;
+import SQLite.model.CarSchema;
 
 public class MyDBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "Cars.db";
@@ -27,21 +29,10 @@ public class MyDBHelper extends SQLiteOpenHelper {
     private final Context mContext;
     private boolean mNeedUpdate = false;
     private static MyDBHelper myDBHelper;
+    public static final String CAR_TABLE_NAME="cars_table";
+    public static final String CAR_IMAGE_TABLE_NAME="car_image";
 
     private static List<Category> makeList;
-
-    //    private static final String TABLE_CATEGORY="category_table";
-//    private static final String TABLE_CATEGORY_DETAIL = "category_detail_table";
-//    private static final String CATEGORY_NAME_COLUMN="category_name";
-//    private static final String CATEGORY_TYPE_COLUMN="category_type";
-//    private static final String CATEGORY_DETAIL_COLUMN="category_detail";
-
-//    private static final String CREATE_CATEGORY = String.format("CREATE TABLE %s ( %s INTERGER NOT NULL, %s TEXT PRIMARY KEY NOT NULL )"
-//            ,TABLE_CATEGORY,CATEGORY_TYPE_COLUMN,CATEGORY_NAME_COLUMN);
-//
-//    private static final String CREATE_CATEGORY_DETAIL=String.format("CREATE TABLE %s ( %s INTEGER NOT NULL, %s TEXT PRIMARY KEY NOT NULL, %s TEXT NOT NULL )"
-//            ,TABLE_CATEGORY_DETAIL,CATEGORY_TYPE_COLUMN,CATEGORY_NAME_COLUMN,CATEGORY_DETAIL_COLUMN);
-
 
     public static synchronized MyDBHelper getInstance(Context context) {
         if (myDBHelper == null) {
@@ -59,8 +50,8 @@ public class MyDBHelper extends SQLiteOpenHelper {
         }
         mContext = context;
         copyDataBase();
-        //this.getReadableDatabase();
-        database = getReadableDatabase();
+//        database = getReadableDatabase();
+        database = getWritableDatabase();
     }
 
     private void copyDataBase() {
@@ -119,7 +110,8 @@ public class MyDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        createCarsTable(db);
+        createCarImageTable(db);
     }
 
     @Override
@@ -127,5 +119,20 @@ public class MyDBHelper extends SQLiteOpenHelper {
         if (newVersion > oldVersion) {
             mNeedUpdate = true;
         }
+    }
+
+    private void createCarsTable(SQLiteDatabase db){
+        String sqlCmd = String.format("CREATE TABLE IF NOT EXISTS %s ( %s TEXT PRIMARY KEY ,"+
+        " %s TEXT , %s TEXT , %s INTEGER , %s INTEGER , %s REAL , %s INTEGER , %s TEXT ) ",CAR_TABLE_NAME,
+                CarSchema.CARID,CarSchema.MAKE,CarSchema.MODEL,CarSchema.YEAR,CarSchema.PRICE,CarSchema.LOCATION,
+                CarSchema.MILEAGE,CarSchema.OWNER);
+        db.execSQL(sqlCmd);
+    }
+
+    private void createCarImageTable(SQLiteDatabase db){
+        String sqlCmd = String.format("CREATE TABLE IF NOT EXISTS %s ( %s TEXT PRIMARY KEY ,"+
+                " %s BLOB , %s BLOB , %s BLOB ) ",CAR_IMAGE_TABLE_NAME,CarImage.CARID,CarImage.IMAGE_1,
+                CarImage.IMAEG_2,CarImage.IMAEG_3);
+        db.execSQL(sqlCmd);
     }
 }

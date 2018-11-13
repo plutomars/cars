@@ -1,8 +1,6 @@
 package Model;
 
-import io.realm.RealmObject;
-
-public class Category extends RealmObject {
+public class Category {
     private int mtype;
     private String mCategoryName;
 
