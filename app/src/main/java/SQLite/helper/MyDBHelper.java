@@ -37,6 +37,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
     public static synchronized MyDBHelper getInstance(Context context) {
         if (myDBHelper == null) {
             myDBHelper = new MyDBHelper(context);
+
         }
         return myDBHelper;
     }
@@ -49,9 +50,11 @@ public class MyDBHelper extends SQLiteOpenHelper {
             DB_PATH = "/data/data/" + context.getPackageName() + "/databases";
         }
         mContext = context;
+
         copyDataBase();
-//        database = getReadableDatabase();
         database = getWritableDatabase();
+        createCarsTable(database);
+        createCarImageTable(database);
     }
 
     private void copyDataBase() {
@@ -110,6 +113,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        Log.d(TAG,"enter onCreate database");
         createCarsTable(db);
         createCarImageTable(db);
     }
@@ -127,12 +131,14 @@ public class MyDBHelper extends SQLiteOpenHelper {
                 CarSchema.CARID,CarSchema.MAKE,CarSchema.MODEL,CarSchema.YEAR,CarSchema.PRICE,CarSchema.LOCATION,
                 CarSchema.MILEAGE,CarSchema.OWNER);
         db.execSQL(sqlCmd);
+        Log.d(TAG,"create cars table successful");
     }
 
     private void createCarImageTable(SQLiteDatabase db){
-        String sqlCmd = String.format("CREATE TABLE IF NOT EXISTS %s ( %s TEXT PRIMARY KEY ,"+
-                " %s BLOB , %s BLOB , %s BLOB ) ",CAR_IMAGE_TABLE_NAME,CarImage.CARID,CarImage.IMAGE_1,
-                CarImage.IMAEG_2,CarImage.IMAEG_3);
+        String sqlCmd = String.format("CREATE TABLE IF NOT EXISTS %s ( %s TEXT ,"+
+                " %s INTEGER , %s BLOB ) ",CAR_IMAGE_TABLE_NAME,CarImage.CARID,CarImage.IMGNO,
+                CarImage.IMAGE);
         db.execSQL(sqlCmd);
+        Log.d(TAG,"create carimage table successful");
     }
 }

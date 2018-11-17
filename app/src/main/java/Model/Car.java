@@ -1,5 +1,8 @@
 package Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Car {
     private String carid;
     private String make;
@@ -9,9 +12,16 @@ public class Car {
     private float location;
     private int mileage;
     private String owner;
-    private byte[] image_1;
-    private byte[] image_2;
-    private byte[] image_3;
+    private List<MyImage> images = new ArrayList<>();
+
+
+    public List<MyImage> getImages() {
+        return images;
+    }
+
+    public void setImages(List<MyImage> images) {
+        this.images = images;
+    }
 
     public String getCarid() {
         return carid;
@@ -77,27 +87,4 @@ public class Car {
         this.owner = owner;
     }
 
-    public byte[] getImage_1() {
-        return image_1;
-    }
-
-    public void setImage_1(byte[] image_1) {
-        this.image_1 = image_1;
-    }
-
-    public byte[] getImage_2() {
-        return image_2;
-    }
-
-    public void setImage_2(byte[] image_2) {
-        this.image_2 = image_2;
-    }
-
-    public byte[] getImage_3() {
-        return image_3;
-    }
-
-    public void setImage_3(byte[] image_3) {
-        this.image_3 = image_3;
-    }
 }
