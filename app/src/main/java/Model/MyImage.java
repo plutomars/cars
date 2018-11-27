@@ -6,6 +6,14 @@ public class MyImage {
     private int img_no;
     private byte[] image;
 
+    public MyImage(){}
+
+    public MyImage(String carid,int img_no,byte[] image){
+        this.carid=carid;
+        this.img_no=img_no;
+        this.image = image;
+    }
+
     public String getCarid() {
         return carid;
     }
