@@ -1,10 +1,13 @@
 package com.example.pluto.cars;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
 import Adapter.CategoryAdapter;
 import Model.CategorySingleton;
@@ -13,6 +16,12 @@ import Model.DividerItemDecoration;
 public class MakeActivity extends AppCompatActivity {
     private static final String TAG="MakeActivity";
     private RecyclerView recyclerView;
+    private static String choosenMake = "";
+    private static final String EXTRA_MAKE="make";
+
+//    public static Intent newIntent(Context context){
+//
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,5 +37,11 @@ public class MakeActivity extends AppCompatActivity {
         Log.d(TAG,"create a recycler adapter");
         recyclerView.setAdapter(ca);
         Log.d(TAG,"set the adapter to the recycler view");
+        recyclerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
     }
 }

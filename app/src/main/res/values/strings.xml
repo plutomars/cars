@@ -4,4 +4,10 @@
     <string name="sell_button">Sell</string>
     <string name="welcome_txt">Welcome to Car</string>
     <string name="title_activity_selection_list">SelectionListActivity</string>
+    <string name="make">Make</string>
+    <string name="model">Model</string>
+    <string name="year">Year</string>
+    <string name="price">Price</string>
+    <string name="mileage">Mileage</string>
+    <string name="search">Search Cars</string>
 </resources>
