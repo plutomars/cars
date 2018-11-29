@@ -23,7 +23,8 @@ public class ModelActivity extends AppCompatActivity {
         Log.d(TAG,"create a recyclerview");
         CategorySingleton categorySingleton = CategorySingleton.getInstance(this);
         Log.d(TAG,"create a singleton");
-        CategoryAdapter ca = new CategoryAdapter(this,categorySingleton.getCategoryList());
+//        CategoryAdapter ca = new CategoryAdapter(this,categorySingleton.getCategoryList());
+        CategoryAdapter ca = new CategoryAdapter(this, categorySingleton.getModelsByMake("All"));
         Log.d(TAG,"create a recycler adapter");
         recyclerView.setAdapter(ca);
         Log.d(TAG,"set the adapter to the recycler view");
