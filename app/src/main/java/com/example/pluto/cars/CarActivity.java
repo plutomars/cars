@@ -36,8 +36,6 @@ public class CarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car);
 
-
-
         viewPager = findViewById(R.id.car_image_pager);
 
         mMakeInfo = findViewById(R.id.car_make_info);
