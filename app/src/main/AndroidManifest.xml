@@ -25,6 +25,7 @@
         <activity android:name=".ImageActivity" />
         <activity android:name=".ModelActivity" />
         <activity android:name=".MakeActivity" />
+        <activity android:name=".SellActivity"></activity>
     </application>
 
 </manifest>
