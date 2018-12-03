@@ -15,12 +15,19 @@
             android:id="@+id/car_make_info_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:paddingLeft="60dp"
+            android:paddingBottom="10dp"
+            android:textSize="20dp"
+            android:layout_weight="1"
+            android:text="@string/make"/>
 
         <TextView
             android:id="@+id/car_make_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/info_color"
+            android:paddingBottom="10dp"
+            android:textSize="20dp"
             android:layout_weight="1"/>
     </LinearLayout>
 
@@ -34,12 +41,19 @@
             android:id="@+id/car_model_info_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:paddingLeft="60dp"
+            android:paddingBottom="10dp"
+            android:textSize="20dp"
+            android:layout_weight="1"
+            android:text="@string/model"/>
 
         <TextView
             android:id="@+id/car_model_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/info_color"
+            android:paddingBottom="10dp"
+            android:textSize="20dp"
             android:layout_weight="1"/>
     </LinearLayout>
 
@@ -53,12 +67,19 @@
             android:id="@+id/car_year_info_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:paddingLeft="60dp"
+            android:paddingBottom="10dp"
+            android:textSize="20dp"
+            android:layout_weight="1"
+            android:text = "@string/year"/>
 
         <TextView
             android:id="@+id/car_year_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/info_color"
+            android:paddingBottom="10dp"
+            android:textSize="20dp"
             android:layout_weight="1"/>
     </LinearLayout>
 
@@ -72,12 +93,19 @@
             android:id="@+id/car_price_info_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:paddingLeft="60dp"
+            android:paddingBottom="10dp"
+            android:textSize="20dp"
+            android:layout_weight="1"
+            android:text = "@string/price"/>
 
         <TextView
             android:id="@+id/car_price_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/info_color"
+            android:paddingBottom="10dp"
+            android:textSize="20dp"
             android:layout_weight="1"/>
     </LinearLayout>
 
@@ -91,12 +119,19 @@
             android:id="@+id/car_mileage_info_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:paddingLeft="60dp"
+            android:paddingBottom="10dp"
+            android:textSize="20dp"
+            android:layout_weight="1"
+            android:text = "@string/mileage"/>
 
         <TextView
             android:id="@+id/car_mileage_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/info_color"
+            android:paddingBottom="10dp"
+            android:textSize="20dp"
             android:layout_weight="1"/>
     </LinearLayout>
     <!--owner-->
@@ -109,12 +144,19 @@
             android:id="@+id/car_owner_info_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:paddingLeft="60dp"
+            android:paddingBottom="10dp"
+            android:textSize="20dp"
+            android:layout_weight="1"
+            android:text = "@string/owner"/>
 
         <TextView
             android:id="@+id/car_owner_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/info_color"
+            android:paddingBottom="10dp"
+            android:textSize="20dp"
             android:layout_weight="1"/>
 
     </LinearLayout>

@@ -20,7 +20,6 @@ public class ListResultActivity extends AppCompatActivity {
     private ListAdapter mListAdapter;
     private static final String TAG = "ListResultActivity";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

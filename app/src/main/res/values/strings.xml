@@ -9,5 +9,7 @@
     <string name="year">Year</string>
     <string name="price">Price</string>
     <string name="mileage">Mileage</string>
+    <string name="owner">Owner</string>
     <string name="search">Search Cars</string>
+    <string name="title_activity_sell">Sell a car</string>
 </resources>

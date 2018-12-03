@@ -5,4 +5,5 @@
     <color name="colorAccent">#D81B60</color>
     <color name="title_color">#000000</color>
     <color name="title_background">#ded6d6</color>
+    <color name="info_color">#0497cb</color>
 </resources>

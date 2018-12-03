@@ -86,6 +86,33 @@ public final class CarSchema {
         return carList;
     }
 
+    public static Car getTestCar(){
+        Log.d(TAG,"get test car");
+
+        String whereClause = String.format("make = ? AND model = ? AND car_id = 1");
+        String[] whereArgs = new String[]{"Honda","Civic"};
+
+        Cursor cursor = sqLiteDatabase.query(MyDBHelper.CAR_TABLE_NAME,null,whereClause,whereArgs,null,null,null);
+        Car car = new Car();
+        try{
+            cursor.moveToFirst();
+            car.setCarid(cursor.getString(cursor.getColumnIndex(CarSchema.CARID)));
+            car.setMake(cursor.getString(cursor.getColumnIndex(CarSchema.MAKE)));
+            car.setModel(cursor.getString(cursor.getColumnIndex(CarSchema.MODEL)));
+            car.setYear(cursor.getInt(cursor.getColumnIndex(CarSchema.YEAR)));
+            car.setPrice(cursor.getInt(cursor.getColumnIndex(CarSchema.PRICE)));
+            car.setLocation(cursor.getFloat(cursor.getColumnIndex(CarSchema.LOCATION)));
+            car.setMileage(cursor.getInt(cursor.getColumnIndex(CarSchema.MILEAGE)));
+            car.setOwner(cursor.getString(cursor.getColumnIndex(CarSchema.OWNER)));
+            CarImage.getInstance(mContext);
+            CarImage.setImages(car);
+        }finally {
+            if(cursor!=null && !cursor.isClosed()){
+                cursor.close();
+            }
+        }
+        return car;
+    }
     private static ContentValues getContentValue(Car car){
         ContentValues c = new ContentValues();
         c.put(CarSchema.CARID,car.getCarid());
