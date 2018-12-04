@@ -4,10 +4,11 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pluto.cars.R;
 
-public class Item_ViewHolder extends RecyclerView.ViewHolder {
+public class Item_ViewHolder extends RecyclerView.ViewHolder  {
     private TextView mTextView;
     public Item_ViewHolder(@NonNull View itemView) {
         super(itemView);

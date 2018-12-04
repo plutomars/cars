@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SearchActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,7 +19,7 @@
         <activity android:name=".ListResultActivity" />
         <activity android:name=".TestActivity" />
         <activity android:name=".YearActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".SearchActivity" />
         <activity android:name=".InformationActivity" />
         <activity android:name=".CarActivity" />
         <activity android:name=".ImageActivity" />

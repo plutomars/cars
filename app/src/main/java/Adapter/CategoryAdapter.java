@@ -24,9 +24,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private List<Category> mListItems;
     private static final String TAG="CategoryAdpater";
     private OnItemClickListener mOnItemClickListener;
+    public Object value;
 
     public interface OnItemClickListener{
         void onItemClick(View view,int position);
+
     }
 
     public CategoryAdapter(Context context,List<Category> listItems){
@@ -56,11 +58,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }else{
             Item_ViewHolder h = (Item_ViewHolder)viewHolder;
             if(mOnItemClickListener!=null){
-                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                h.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        int position = viewHolder.getLayoutPosition();
-                        mOnItemClickListener.onItemClick(viewHolder.itemView,position);
+                        int position = h.getLayoutPosition();
+                        mOnItemClickListener.onItemClick(h.itemView,position);
+                        value=position;
                     }
                 });
             }
