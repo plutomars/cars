@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.example.pluto.cars.R;
@@ -15,14 +16,18 @@ import Model.Category;
 import Model.Item_ViewHolder;
 import Model.Title_ViewHolder;
 
-public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
 
     private static final int TYPE_CATEGORY_TITLE=0;
     private static final int TYPE_CATEGORY_ITEM=1;
     private LayoutInflater mInflater;
     private List<Category> mListItems;
     private static final String TAG="CategoryAdpater";
+    private OnItemClickListener mOnItemClickListener=null;
 
+    public interface OnItemClickListener{
+        void onItemClick(View view,int position);
+    }
 
     public CategoryAdapter(Context context,List<Category> listItems){
         mListItems = listItems;
@@ -32,13 +37,25 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         if (viewType==TYPE_CATEGORY_TITLE){
             View title_view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_title,parent,false);
             return new Title_ViewHolder(title_view);
         }else{
             View item_view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item,parent,false);
+            item_view.setOnClickListener(this);
             return new Item_ViewHolder(item_view);
         }
+    }
+
+    public void onClick(View view){
+        if(mOnItemClickListener!=null){
+            mOnItemClickListener.onItemClick(view,(int)view.getTag());
+        }
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        mOnItemClickListener=listener;
     }
 
     @Override
