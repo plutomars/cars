@@ -36,16 +36,14 @@ public class MakeActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 Toast.makeText(MakeActivity.this,"show",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MakeActivity.this, SearchActivity.class);
+                //Intent intent = new Intent(MakeActivity.this, SearchActivity.class);
 
-                intent.putExtra("KEY",choosenMake);
-                Toast.makeText(MakeActivity.this,choosenMake,Toast.LENGTH_SHORT).show();
-                startActivity(intent);
+                //intent.putExtra("KEY",choosenMake);
+                Toast.makeText(MakeActivity.this,String.valueOf(ca.value),Toast.LENGTH_SHORT).show();
+                //startActivity(intent);
 
             }
         });
         recyclerView.setAdapter(ca);
-        recyclerView.
-        Log.d(TAG,"set the adapter to the recycler view");
     }
 }
