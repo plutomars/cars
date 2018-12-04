@@ -1,5 +1,6 @@
 package com.example.pluto.cars;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,7 +26,9 @@ public class MainActivity extends AppCompatActivity {
         mBuyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                Bundle extras = new Bundle();
+                startActivity(intent);
             }
         });
 
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                finish();
             }
         });
 

@@ -19,7 +19,7 @@ public class MakeActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private static String choosenMake = "";
     private static final String EXTRA_MAKE="make";
-    
+    private static int position;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +37,9 @@ public class MakeActivity extends AppCompatActivity {
             public void onItemClick(View view, int position) {
                 Toast.makeText(MakeActivity.this,"show",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MakeActivity.this, SearchActivity.class);
+                //position = (int) recyclerView.getAdapter().getItemId(position);
 
+                choosenMake = String.valueOf(ca.getValue(position));
                 intent.putExtra("KEY",choosenMake);
                 Toast.makeText(MakeActivity.this,choosenMake,Toast.LENGTH_SHORT).show();
                 startActivity(intent);
@@ -45,7 +47,7 @@ public class MakeActivity extends AppCompatActivity {
             }
         });
         recyclerView.setAdapter(ca);
-        recyclerView.
+
         Log.d(TAG,"set the adapter to the recycler view");
     }
 }

@@ -28,6 +28,12 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
+        Bundle extras = getIntent().getExtras();
+        if(extras !=null) {
+            String value = extras.getString("KEY");
+            makeInfo = (TextView) findViewById(R.id.make_info);
+            makeInfo.setText(value);
+        }
     }
 
     @OnClick({R.id.make_title,R.id.make_info,R.id.model_info,R.id.model_title,R.id.year_info,R.id.year_title,R.id.price_info,R.id.price_title,R.id.mileage_title,R.id.mileage_info})
@@ -35,28 +41,37 @@ public class SearchActivity extends AppCompatActivity {
         switch (view.getId()){
             case R.id.make_title:
             case R.id.make_info:
+                Intent intent = new Intent(SearchActivity.this, MakeActivity.class);
+                Bundle extras = new Bundle();
+                startActivity(intent);
 
                 break;
 
             case R.id.model_info:
             case R.id.model_title:
-
+                Intent model = new Intent(SearchActivity.this, MakeActivity.class);
+                startActivity(model);
+                finish();
                 break;
 
             case R.id.year_title:
             case R.id.year_info:
-                Intent intent = new Intent();
+
 
                 break;
 
             case R.id.price_info:
             case R.id.price_title:
-
+                Intent price = new Intent(SearchActivity.this, MakeActivity.class);
+                startActivity(price);
+                finish();
                 break;
 
             case R.id.mileage_info:
             case R.id.mileage_title:
-
+                Intent mileage = new Intent(SearchActivity.this, MakeActivity.class);
+                startActivity(mileage);
+                finish();
                 break;
         }
     }

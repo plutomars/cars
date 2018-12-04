@@ -89,6 +89,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return position;
     }
 
+    public Object getValue(int positon){
+        return mListItems.get(positon).getCategoryName();
+    }
+
     @Override
     public int getItemCount() {
         return mListItems.size();
