@@ -103,4 +103,11 @@ public final class CarImage {
         c.put(CarImage.IMAGE,imageObj.getImage());
         return c;
     }
+
+    public static void getImages(Car car){
+        if(car.getImages().size()==0)return;
+        for(MyImage myImage:car.getImages()){
+
+        }
+    }
 }
