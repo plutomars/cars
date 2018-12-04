@@ -12,12 +12,6 @@ public class Item_ViewHolder extends RecyclerView.ViewHolder {
     public Item_ViewHolder(@NonNull View itemView) {
         super(itemView);
         mTextView = (TextView)itemView.findViewById(R.id.list_item_view);
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
     }
 
     public void setText(String str){

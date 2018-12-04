@@ -16,14 +16,14 @@ import Model.Category;
 import Model.Item_ViewHolder;
 import Model.Title_ViewHolder;
 
-public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
+public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private static final int TYPE_CATEGORY_TITLE=0;
     private static final int TYPE_CATEGORY_ITEM=1;
     private LayoutInflater mInflater;
     private List<Category> mListItems;
     private static final String TAG="CategoryAdpater";
-    private OnItemClickListener mOnItemClickListener=null;
+    private OnItemClickListener mOnItemClickListener;
 
     public interface OnItemClickListener{
         void onItemClick(View view,int position);
@@ -43,19 +43,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             return new Title_ViewHolder(title_view);
         }else{
             View item_view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item,parent,false);
-            item_view.setOnClickListener(this);
             return new Item_ViewHolder(item_view);
         }
-    }
-
-    public void onClick(View view){
-        if(mOnItemClickListener!=null){
-            mOnItemClickListener.onItemClick(view,(int)view.getTag());
-        }
-    }
-
-    public void setOnItemClickListener(OnItemClickListener listener){
-        mOnItemClickListener=listener;
     }
 
     @Override
@@ -66,8 +55,21 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             h.setText(c.getCategoryName());
         }else{
             Item_ViewHolder h = (Item_ViewHolder)viewHolder;
+            if(mOnItemClickListener!=null){
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int position = viewHolder.getLayoutPosition();
+                        mOnItemClickListener.onItemClick(viewHolder.itemView,position);
+                    }
+                });
+            }
             h.setText(c.getCategoryName());
         }
+    }
+
+    public void setOnItemClickListener(OnItemClickListener mOnItemClickListener){
+        this.mOnItemClickListener=mOnItemClickListener;
     }
 
     @Override

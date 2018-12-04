@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import Adapter.CategoryAdapter;
 import Model.CategorySingleton;
@@ -18,11 +19,7 @@ public class MakeActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private static String choosenMake = "";
     private static final String EXTRA_MAKE="make";
-
-//    public static Intent newIntent(Context context){
-//
-//    }
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,13 +32,13 @@ public class MakeActivity extends AppCompatActivity {
         Log.d(TAG,"create a singleton");
         CategoryAdapter ca = new CategoryAdapter(this,categorySingleton.getCategoryList());
         Log.d(TAG,"create a recycler adapter");
-        recyclerView.setAdapter(ca);
-        Log.d(TAG,"set the adapter to the recycler view");
-        recyclerView.setOnClickListener(new View.OnClickListener() {
+        ca.setOnItemClickListener(new CategoryAdapter.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                
+            public void onItemClick(View view, int position) {
+                Toast.makeText(MakeActivity.this,"show",Toast.LENGTH_SHORT).show();
             }
         });
+        recyclerView.setAdapter(ca);
+        Log.d(TAG,"set the adapter to the recycler view");
     }
 }
