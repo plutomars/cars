@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/takePhoto"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:text="Take a photo"
+        android:background="@color/app_white"
+        android:textColor="@color/app_color"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+    <Button
+        android:id="@+id/choosePhoto"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:text="From the gallery"
+        android:textColor="@color/app_color"
+        android:textSize="18sp"
+        android:background="@color/app_white"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="Cancel"
+        android:background="@color/app_white"
+        android:textColor="@color/app_color"
+        android:textSize="18sp"/>
+
+
+</LinearLayout>

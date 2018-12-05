@@ -40,6 +40,7 @@ public final class CarSchema {
     public void insertCar(Car car){
         ContentValues contentValues = getContentValue(car);
         sqLiteDatabase.insert(MyDBHelper.CAR_TABLE_NAME,null, contentValues);
+        CarImage.insertImages(car);
     }
 
     public synchronized Cursor queryCar(String make,String model,int price,int mileage){
@@ -105,7 +106,7 @@ public final class CarSchema {
             car.setMileage(cursor.getInt(cursor.getColumnIndex(CarSchema.MILEAGE)));
             car.setOwner(cursor.getString(cursor.getColumnIndex(CarSchema.OWNER)));
             CarImage.getInstance(mContext);
-            CarImage.setImages(car);
+//            CarImage.setImages(car);
         }finally {
             if(cursor!=null && !cursor.isClosed()){
                 cursor.close();

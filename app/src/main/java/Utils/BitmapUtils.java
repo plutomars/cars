@@ -4,6 +4,8 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import java.io.ByteArrayOutputStream;
+
 public class BitmapUtils {
     private static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
         final int height = options.outHeight;
@@ -37,5 +39,13 @@ public class BitmapUtils {
         options.inJustDecodeBounds = false;
         Bitmap src = BitmapFactory.decodeFile(pathName, options);
         return src;
+    }
+
+    public static byte[] BitmapToBytes(Bitmap bitmap){
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG,100,stream);
+        byte[] array = stream.toByteArray();
+        bitmap.recycle();
+        return array;
     }
 }

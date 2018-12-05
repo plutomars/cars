@@ -63,7 +63,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     public void onClick(View v) {
                         int position = h.getLayoutPosition();
                         mOnItemClickListener.onItemClick(h.itemView,position);
-                        value=position;
+//                        value=position;
                     }
                 });
             }

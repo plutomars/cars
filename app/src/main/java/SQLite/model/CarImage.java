@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +84,7 @@ public final class CarImage {
         }
     }
 
-    public static void insertImages(MyImage imageObj){
+    private static void insertSingleImage(MyImage imageObj){
         ContentValues contentValues = getContentValue(imageObj);
         sqLiteDatabase.insert(MyDBHelper.CAR_IMAGE_TABLE_NAME,null,contentValues);
         Log.d(TAG,"insertImage successful");
@@ -104,10 +105,11 @@ public final class CarImage {
         return c;
     }
 
-    public static void getImages(Car car){
+    public static void insertImages(Car car){
         if(car.getImages().size()==0)return;
         for(MyImage myImage:car.getImages()){
-
+            System.out.print(car.getImages().size());
+            //insertSingleImage(myImage);
         }
     }
 }
