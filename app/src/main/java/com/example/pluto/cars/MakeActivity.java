@@ -17,9 +17,9 @@ import Model.DividerItemDecoration;
 public class MakeActivity extends AppCompatActivity {
     private static final String TAG="MakeActivity";
     private RecyclerView recyclerView;
-    private static String choosenMake = "";
+    public static String choosenMake = "";
     private static final String EXTRA_MAKE="make";
-    
+    private static int position;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,18 +32,19 @@ public class MakeActivity extends AppCompatActivity {
         Log.d(TAG,"create a singleton");
         CategoryAdapter ca = new CategoryAdapter(this,categorySingleton.getCategoryList());
         Log.d(TAG,"create a recycler adapter");
+        Intent intent = new Intent(MakeActivity.this, ModelActivity.class);
         ca.setOnItemClickListener(new CategoryAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(MakeActivity.this,"show",Toast.LENGTH_SHORT).show();
-                //Intent intent = new Intent(MakeActivity.this, SearchActivity.class);
-
-                //intent.putExtra("KEY",choosenMake);
-                Toast.makeText(MakeActivity.this,String.valueOf(ca.value),Toast.LENGTH_SHORT).show();
-                //startActivity(intent);
+                choosenMake = String.valueOf(ca.getValue(position));
+                intent.putExtra("make",choosenMake);
+                Toast.makeText(MakeActivity.this,choosenMake,Toast.LENGTH_SHORT).show();
+                startActivity(intent);
 
             }
         });
         recyclerView.setAdapter(ca);
+
+        Log.d(TAG,"set the adapter to the recycler view");
     }
 }
