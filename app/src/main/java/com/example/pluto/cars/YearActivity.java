@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Adapter.YearAdapter;
+import Model.Constant;
 import Model.DividerItemDecoration;
 import Model.YearObj;
 import Model.YearSingleton;
@@ -23,23 +24,16 @@ public class YearActivity extends AppCompatActivity implements YearAdapter.OnIte
 
     private static final String TAG="YearActivity";
     private RecyclerView recyclerView;
-    private List<YearObj> yearObjList = new ArrayList<>();
     private YearAdapter yearAdapter = null;
     private Button applyButton;
     private List<YearObj> selection = new ArrayList<>();
     private Intent mIntent;
-    private String make;
-    private String model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_year);
         init();
-        mIntent = new Intent(YearActivity.this, PriceActivity.class);
-        Bundle extras = getIntent().getExtras();
-         make = extras.getString("make");
-         model = extras.getString("model");
     }
 
     private void init(){
@@ -47,11 +41,12 @@ public class YearActivity extends AppCompatActivity implements YearAdapter.OnIte
         applyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mIntent.putExtra("make",make);
-                mIntent.putExtra("model",model);
-                mIntent.putExtra("year",yearConvert(selection));
-                startActivity(mIntent);
-                Log.d(TAG,Integer.toString(selection.size()));
+                mIntent = getIntent();
+                Bundle bundle = new Bundle();
+                bundle.putString("year",yearConvert(selection));
+                mIntent.putExtras(bundle);
+                setResult(Constant.YearRequestCode,mIntent);
+                YearActivity.this.finish();
             }
         });
 

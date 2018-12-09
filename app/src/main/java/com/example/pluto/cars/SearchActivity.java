@@ -3,21 +3,20 @@ package com.example.pluto.cars;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import Model.Constant;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SearchActivity extends AppCompatActivity {
-    public static String value;
-    public static String value1;
-    public static String value2;
-    public static String value3;
-    public static String value4;
     @BindView(R.id.make_title) TextView makeTitle;
     @BindView(R.id.make_info) TextView makeInfo;
     @BindView(R.id.model_title) TextView modelTitle;
@@ -28,33 +27,69 @@ public class SearchActivity extends AppCompatActivity {
     @BindView(R.id.price_info) TextView priceInfo;
     @BindView(R.id.mileage_title) TextView mileageTitle;
     @BindView(R.id.mileage_info) TextView mileageInfo;
+    private static String defaultMake="All";
+    private String make="";
+    private String model="";
+    private static final String TAG="SearchActivity";
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch(requestCode){
+
+            case 100:
+                make = data.getExtras().getString("make");
+                makeInfo.setText(make);
+                break;
+            case 101:
+                make = data.getExtras().getString("make");
+                model = data.getExtras().getString("model");
+                makeInfo.setText(make);
+                modelInfo.setText(model);
+                break;
+            case 102:
+                String year = data.getExtras().getString("year");
+                yearInfo.setText(year);
+                break;
+            case 103:
+                String price = data.getExtras().getString("price");
+                priceInfo.setText(price);
+                break;
+            case 104:
+                String mileage = data.getExtras().getString("mileage");
+                mileageInfo.setText(mileage);
+                break;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
+        make=defaultMake;
+        makeInfo.setText(defaultMake);
+        modelInfo.setText(defaultMake);
+    }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        make= intent.getStringExtra("make");
+        model = intent.getStringExtra("model");
+    }
 
-        Bundle extras = getIntent().getExtras();
-        getIntent().getStringArrayListExtra("year");
-        if(extras !=null) {
-            value = extras.getString("make");
-            value1 = extras.getString("model");
-            value2 = extras.getString("year");
-            value3 = extras.getString("price");
-            value4 = extras.getString("mileage");
-            makeInfo = (TextView) findViewById(R.id.make_info);
-            makeInfo.setText(value);
-            modelInfo = (TextView)findViewById(R.id.model_info);
-            modelInfo.setText(value1);
-            yearInfo = (TextView)findViewById(R.id.year_info);
-            yearInfo.setText(value2);
-            yearInfo = (TextView)findViewById(R.id.price_info);
-            yearInfo.setText(value3);
-            yearInfo = (TextView)findViewById(R.id.mileage_info);
-            yearInfo.setText(value4);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG,"onResume enter");
+        if(TextUtils.isEmpty(make)){
+            makeInfo.setText(defaultMake);
+        }else{
+            makeInfo.setText(make);
         }
+        modelInfo.setText(model);
     }
 
     @OnClick({R.id.make_title,R.id.make_info,R.id.model_info,R.id.model_title,R.id.year_info,R.id.year_title,R.id.price_info,R.id.price_title,R.id.mileage_title,R.id.mileage_info})
@@ -62,41 +97,40 @@ public class SearchActivity extends AppCompatActivity {
         switch (view.getId()){
             case R.id.make_title:
             case R.id.make_info:
-                Intent intent = new Intent(SearchActivity.this, MakeActivity.class);
-                Bundle extras = new Bundle();
-                startActivity(intent);
-
+                Intent makeIntent = new Intent(SearchActivity.this, MakeActivity.class);
+                startActivity(makeIntent);
                 break;
 
             case R.id.model_info:
             case R.id.model_title:
-                Intent model = new Intent(SearchActivity.this, ModelActivity.class);
-                startActivity(model);
-                finish();
+                Intent modelIntent = new Intent(SearchActivity.this, ModelActivity.class);
+                Log.d(TAG,make);
+                if(!TextUtils.isEmpty(make)){
+                    Bundle bundle = new Bundle();
+                    bundle.putString("make",make);
+                    bundle.putInt("single",1);
+                    modelIntent.putExtras(bundle);
+                }
+                startActivityForResult(modelIntent,Constant.ModelRequestCode);
                 break;
 
             case R.id.year_title:
             case R.id.year_info:
-                Intent year = new Intent(SearchActivity.this, YearActivity.class);
-                startActivity(year);
-                finish();
-
+                Intent yearIntent = new Intent(SearchActivity.this,YearActivity.class);
+                startActivityForResult(yearIntent,Constant.YearRequestCode);
                 break;
 
             case R.id.price_info:
             case R.id.price_title:
-                Intent price = new Intent(SearchActivity.this, PriceActivity.class);
-                startActivity(price);
-                finish();
+                Intent priceIntent = new Intent(SearchActivity.this,PriceActivity.class);
+                startActivityForResult(priceIntent,Constant.PriceRequestCode);
                 break;
 
             case R.id.mileage_info:
             case R.id.mileage_title:
-                Intent mileage = new Intent(SearchActivity.this, MakeActivity.class);
-                startActivity(mileage);
-                finish();
+                Intent mileageIntent = new Intent(SearchActivity.this, MileageActivity.class);
+                startActivityForResult(mileageIntent,Constant.MileageRequestCode);
                 break;
         }
     }
-
 }

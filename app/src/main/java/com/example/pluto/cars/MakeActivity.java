@@ -10,8 +10,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import org.xml.sax.helpers.LocatorImpl;
+
 import Adapter.CategoryAdapter;
 import Model.CategorySingleton;
+import Model.Constant;
 import Model.DividerItemDecoration;
 
 public class MakeActivity extends AppCompatActivity {
@@ -20,6 +23,7 @@ public class MakeActivity extends AppCompatActivity {
     public static String choosenMake = "";
     private static final String EXTRA_MAKE="make";
     private static int position;
+    private Intent mIntent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,21 +34,35 @@ public class MakeActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST));
         CategorySingleton categorySingleton = CategorySingleton.getInstance(this);
         Log.d(TAG,"create a singleton");
-        CategoryAdapter ca = new CategoryAdapter(this,categorySingleton.getCategoryList());
+        CategoryAdapter ca = new CategoryAdapter(this,CategorySingleton.getCategoryList());
         Log.d(TAG,"create a recycler adapter");
-        Intent intent = new Intent(MakeActivity.this, ModelActivity.class);
+
         ca.setOnItemClickListener(new CategoryAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 choosenMake = String.valueOf(ca.getValue(position));
-                intent.putExtra("make",choosenMake);
-                Toast.makeText(MakeActivity.this,choosenMake,Toast.LENGTH_SHORT).show();
-                startActivity(intent);
-
+                mIntent = getIntent();
+                mIntent.setClass(MakeActivity.this,ModelActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("make",choosenMake);
+                bundle.putInt("single",0);
+                mIntent.putExtras(bundle);
+                startActivity(mIntent);
             }
         });
         recyclerView.setAdapter(ca);
 
         Log.d(TAG,"set the adapter to the recycler view");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG,"onPause enter");
+        mIntent=getIntent();
+        Bundle bundle = new Bundle();
+        bundle.putString("make",choosenMake);
+        mIntent.putExtras(bundle);
+
     }
 }

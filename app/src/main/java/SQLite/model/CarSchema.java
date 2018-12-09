@@ -7,11 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.util.Log;
 
+import java.nio.file.LinkOption;
 import java.util.ArrayList;
 import java.util.List;
 
 import Model.Car;
 import SQLite.helper.MyDBHelper;
+import Utils.PjUtils;
 
 public final class CarSchema {
     public static final String CARID="car_id";
@@ -43,12 +45,22 @@ public final class CarSchema {
         CarImage.insertImages(car);
     }
 
-    public synchronized Cursor queryCar(String make,String model,int price,int mileage){
-        Log.d(TAG,"queryCar");
-        String whereClause = String.format("%s LIKE ? AND %s LIKE ? AND %s < ? AND %s < ?",
-                CarSchema.MAKE,CarSchema.MODEL,CarSchema.PRICE,CarSchema.MILEAGE);
-        Log.d(TAG,whereClause);
-        String[] whereArgs=new String[]{make+"%",model+"%",String.valueOf(price),String.valueOf(mileage)};
+
+    /*
+    * create whereClause and whereArgs from PjUtils
+    * input year list
+    *
+    *
+    */
+    public synchronized Cursor queryCar(String make,String model,int price,int mileage,String[] years){
+        String whereClause = PjUtils.createWhereClause(years);
+        List<String> list = new ArrayList<>();
+        list.add(make+"%");
+        list.add(model+"%");
+        list.add(String.valueOf(price));
+        list.add(String.valueOf(mileage));
+        String[] whereArgs = PjUtils.createWhereArgs(list,years);
+
         Cursor cursor = sqLiteDatabase.query(MyDBHelper.CAR_TABLE_NAME,null,whereClause,whereArgs,null,null,null);
         return cursor;
     }
@@ -71,8 +83,8 @@ public final class CarSchema {
                         car.setLocation(cursor.getFloat(cursor.getColumnIndex(CarSchema.LOCATION)));
                         car.setMileage(cursor.getInt(cursor.getColumnIndex(CarSchema.MILEAGE)));
                         car.setOwner(cursor.getString(cursor.getColumnIndex(CarSchema.OWNER)));
-                        CarImage.getInstance(mContext);
-                        CarImage.setImages(car);
+//                        CarImage.getInstance(mContext);
+//                        CarImage.setImages(car);
                         carList.add(car);
                     } while (cursor.moveToNext());
                 }

@@ -10,28 +10,18 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import Model.CategorySingleton;
+import Model.Constant;
 
 
 public class MileageActivity extends Activity {
     private ListView listView;
     private Intent mIntent;
-    private String make;
-    private String model;
-    private String year;
-    private String price;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mileage);
-
-        mIntent = new Intent(MileageActivity.this, SearchActivity.class);
-        Bundle extras = getIntent().getExtras();
-        make = extras.getString("make");
-        model = extras.getString("model");
-        year = extras.getString("year");
-        price = extras.getString("price");
-
+        CategorySingleton categorySingleton = CategorySingleton.getInstance(this);
         ArrayAdapter adapter = new ArrayAdapter<String>(this,R.layout.activity_listview2,CategorySingleton.getMileageObjList());
 
         listView = (ListView) findViewById(R.id.list_mileage);
@@ -40,14 +30,12 @@ public class MileageActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selectedMileage =(listView.getItemAtPosition(position).toString());
-                Toast.makeText(MileageActivity.this, selectedMileage, Toast.LENGTH_LONG).show();
-                mIntent.putExtra("make",make);
-                mIntent.putExtra("model",model);
-                mIntent.putExtra("year",year);
-                mIntent.putExtra("price",price);
-                mIntent.putExtra("mileage",selectedMileage);
-                startActivity(mIntent);
-
+                mIntent = getIntent();
+                Bundle bundle = new Bundle();
+                bundle.putString("mileage",selectedMileage);
+                mIntent.putExtras(bundle);
+                setResult(Constant.MileageRequestCode,mIntent);
+                MileageActivity.this.finish();
             }
         });
 
