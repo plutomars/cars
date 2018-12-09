@@ -30,6 +30,9 @@ public class SearchActivity extends AppCompatActivity {
     private static String defaultMake="All";
     private String make="";
     private String model="";
+    private String price="";
+    private String mileage="";
+    private String year="";
     private static final String TAG="SearchActivity";
 
     @Override
@@ -76,6 +79,8 @@ public class SearchActivity extends AppCompatActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
+        Log.d(TAG,make+"@");
+        Log.d(TAG,model+"@");
         make= intent.getStringExtra("make");
         model = intent.getStringExtra("model");
     }
@@ -89,10 +94,12 @@ public class SearchActivity extends AppCompatActivity {
         }else{
             makeInfo.setText(make);
         }
+        Log.d(TAG,make+"@");
+        Log.d(TAG,model+"@");
         modelInfo.setText(model);
     }
 
-    @OnClick({R.id.make_title,R.id.make_info,R.id.model_info,R.id.model_title,R.id.year_info,R.id.year_title,R.id.price_info,R.id.price_title,R.id.mileage_title,R.id.mileage_info})
+    @OnClick({R.id.make_title,R.id.make_info,R.id.model_info,R.id.model_title,R.id.year_info,R.id.year_title,R.id.price_info,R.id.price_title,R.id.mileage_title,R.id.mileage_info,R.id.search_car})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.make_title:
@@ -131,6 +138,15 @@ public class SearchActivity extends AppCompatActivity {
                 Intent mileageIntent = new Intent(SearchActivity.this, MileageActivity.class);
                 startActivityForResult(mileageIntent,Constant.MileageRequestCode);
                 break;
+            case R.id.search_car:
+                Intent searchIntent = new Intent(SearchActivity.this,ResultActivity.class);
+                Bundle allBundle = new Bundle();
+                allBundle.putString("make",make);
+                allBundle.putString("model",model);
+                allBundle.putString("year",year);
+                allBundle.putString("price",price);
+                allBundle.putString("mileage",mileage);
+                startActivity(searchIntent,allBundle);
         }
     }
 }

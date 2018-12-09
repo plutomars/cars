@@ -21,11 +21,16 @@ import SQLite.model.CarSchema;
 
 public class ResultActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-
+    private Intent mIntent;
     private static int position;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        String make = getIntent().getExtras().getString("make");
+//        String model = getIntent().getExtras().getString("model");
+//        String year = getIntent().getExtras().getString("year");
+//        String price = getIntent().getExtras().getString("price");
+//        String mileage = getIntent().getExtras().getString("mileage");
         setContentView(R.layout.search_result_list);
         recyclerView = (RecyclerView)findViewById(R.id.recyclerListView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -33,19 +38,20 @@ public class ResultActivity extends AppCompatActivity {
         CarSchema carSchema = new CarSchema(this);
         Cursor cursor = carSchema.queryCar("Honda","Civic",99999,999999, new String[]{"2016","2017"});
         List<Car> carList = carSchema.getCarList(cursor);
-
         SearchResultAdapter SR = new SearchResultAdapter(this,carList);
 
 
         SR.setOnItemClickListener(new SearchResultAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Intent intent = new Intent(ResultActivity.this, SearchActivity.class);
+                mIntent = getIntent();
+                mIntent.setClass(ResultActivity.this, CarActivity.class);
                 Toast.makeText(ResultActivity.this,"going",Toast.LENGTH_SHORT).show();
-                startActivity(intent);
+                startActivity(mIntent);
 
             }
         });
+
         recyclerView.setAdapter(SR);
 
     }
