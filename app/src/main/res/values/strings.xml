@@ -3,7 +3,7 @@
     <string name="app_name">Cars</string>
     <string name="buy_button">Buy</string>
     <string name="sell_button">Sell</string>
-    <string name="welcome_txt">Welcome to Car</string>
+    <string name="welcome_txt">Welcome to CarsCI</string>
     <string name="title_activity_selection_list">SelectionListActivity</string>
     <string name="make">Make</string>
     <string name="model">Model</string>
