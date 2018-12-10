@@ -90,6 +90,7 @@ public final class CarSchema {
                         CarImage.getInstance(mContext);
                         CarImage.setImages(car);
                         carList.add(car);
+                        Log.d(TAG,"Test");
                     } while (cursor.moveToNext());
                 }
             }
