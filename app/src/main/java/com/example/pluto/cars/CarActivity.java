@@ -61,7 +61,6 @@ public class CarActivity extends AppCompatActivity {
         mileageInfo.setText(String.valueOf(car.getMileage()));
         ownerInfo.setText(car.getOwner());
 
-
         FragmentManager fragmentManager = getSupportFragmentManager();
         viewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
             @Override
