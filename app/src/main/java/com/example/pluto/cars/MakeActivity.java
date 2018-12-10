@@ -36,12 +36,13 @@ public class MakeActivity extends AppCompatActivity {
         Log.d(TAG,"create a singleton");
         CategoryAdapter ca = new CategoryAdapter(this,CategorySingleton.getCategoryList());
         Log.d(TAG,"create a recycler adapter");
-
+        //Log.d(TAG,getCallingActivity().getClassName());
         ca.setOnItemClickListener(new CategoryAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 choosenMake = String.valueOf(ca.getValue(position));
                 mIntent = getIntent();
+//                mIntent
                 mIntent.setClass(MakeActivity.this,ModelActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("make",choosenMake);

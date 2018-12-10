@@ -1,6 +1,7 @@
 package com.example.pluto.cars;
 
 import android.content.Intent;
+import android.icu.util.LocaleData;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -42,12 +43,13 @@ public class ModelActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 choosenModel = String.valueOf(ca.getValue(position));
+                Log.d(TAG,passMake);
+                Log.d(TAG,String.valueOf(singleCall));
 
                 Bundle bundle = new Bundle();
                 bundle.putString("make",passMake);
                 bundle.putString("model",choosenModel);
                 mIntent.putExtras(bundle);
-                Log.d(TAG,String.valueOf(singleCall));
                 if(singleCall==0){
                     Log.d(TAG,"enter single call=0");
                     mIntent.setClass(ModelActivity.this,SearchActivity.class);

@@ -33,6 +33,7 @@ public class SearchActivity extends AppCompatActivity {
     private String price="";
     private String mileage="";
     private String year="";
+    private Intent mIntent;
     private static final String TAG="SearchActivity";
 
     @Override
@@ -45,6 +46,7 @@ public class SearchActivity extends AppCompatActivity {
                 makeInfo.setText(make);
                 break;
             case 101:
+                setIntent(data);
                 make = data.getExtras().getString("make");
                 model = data.getExtras().getString("model");
                 makeInfo.setText(make);
@@ -71,14 +73,17 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
         make=defaultMake;
-        makeInfo.setText(defaultMake);
-        modelInfo.setText(defaultMake);
+        model = defaultMake;
+        makeInfo.setText(make);
+        modelInfo.setText(model);
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        Log.d(TAG,"newIntent enter");
         setIntent(intent);
+
         Log.d(TAG,make+"@");
         Log.d(TAG,model+"@");
         make= intent.getStringExtra("make");
@@ -89,14 +94,23 @@ public class SearchActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Log.d(TAG,"onResume enter");
+        mIntent=getIntent();
+
+        make = mIntent.getStringExtra("make");
+        model = mIntent.getStringExtra("model");
         if(TextUtils.isEmpty(make)){
             makeInfo.setText(defaultMake);
         }else{
             makeInfo.setText(make);
         }
+        if(TextUtils.isEmpty(model)){
+            modelInfo.setText(defaultMake);
+        }else{
+            modelInfo.setText(model);
+        }
         Log.d(TAG,make+"@");
         Log.d(TAG,model+"@");
-        modelInfo.setText(model);
+
     }
 
     @OnClick({R.id.make_title,R.id.make_info,R.id.model_info,R.id.model_title,R.id.year_info,R.id.year_title,R.id.price_info,R.id.price_title,R.id.mileage_title,R.id.mileage_info,R.id.search_car})
@@ -110,15 +124,15 @@ public class SearchActivity extends AppCompatActivity {
 
             case R.id.model_info:
             case R.id.model_title:
-                Intent modelIntent = new Intent(SearchActivity.this, ModelActivity.class);
+                mIntent = new Intent(SearchActivity.this, ModelActivity.class);
                 Log.d(TAG,make);
                 if(!TextUtils.isEmpty(make)){
                     Bundle bundle = new Bundle();
                     bundle.putString("make",make);
                     bundle.putInt("single",1);
-                    modelIntent.putExtras(bundle);
+                    mIntent.putExtras(bundle);
                 }
-                startActivityForResult(modelIntent,Constant.ModelRequestCode);
+                startActivityForResult(mIntent,Constant.ModelRequestCode);
                 break;
 
             case R.id.year_title:
