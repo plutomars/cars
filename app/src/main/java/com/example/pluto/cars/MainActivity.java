@@ -36,8 +36,9 @@ public class MainActivity extends AppCompatActivity {
         mSellButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                finish();
+                Intent intent = new Intent( MainActivity.this, SellActivity.class);
+                Bundle extras = new Bundle();
+                startActivity(intent);
             }
         });
 
