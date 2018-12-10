@@ -7,7 +7,7 @@ public class Car {
     private String carid;
     private String make;
     private String model;
-    private int year;
+    private String year;
     private int price;
     private float location;
     private int mileage;
@@ -47,11 +47,11 @@ public class Car {
         this.model = model;
     }
 
-    public int getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
     }
 

@@ -24,8 +24,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -39,45 +41,58 @@ import android.widget.AdapterView.OnItemLongClickListener;
 
 import Adapter.UploadImageAdapter;
 import Model.Car;
+import Model.Constant;
 import Model.MyImage;
+import SQLite.model.CarImage;
 import SQLite.model.CarSchema;
 import Utils.BitmapUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 public class SellActivity extends AppCompatActivity {
 
     private List<Bitmap> data = new ArrayList<Bitmap>();
     private String photoPath;
     private UploadImageAdapter adapter;
-    private static final int PICK_FROM_GALLERY=990;
-    private static final int WRITE_TO_GALLERY=991;
-    private static final int USER_CAMERA=999;
     private static final String TAG="SellActivity";
     private File cameraFile;
     //Make a choice to get an image by using the camera or from the gallery
     private PhotoChoiceWindow choisePhotoPopup;
     @BindView(R.id.send_btn) Button mSendButton;
     @BindView(R.id.gridView1) GridView mGridView;
+
+    @BindView(R.id.car_make_entry_title) TextView makeTitle;
+    @BindView(R.id.car_make_entry_info) EditText makeInfo;
+    @BindView(R.id.car_model_info_entry_title) TextView modelTitle;
+    @BindView(R.id.car_model_entry_info) EditText modelInfo;
+    @BindView(R.id.car_year_info_entry_title) TextView yearTitle;
+    @BindView(R.id.car_year_entry_info) EditText yearInfo;
+    @BindView(R.id.car_price_info_entry_title) TextView priceTitle;
+    @BindView(R.id.car_price_entry_info) EditText priceInfo;
+    @BindView(R.id.car_mileage_info_entry_title) TextView mileageTitle;
+    @BindView(R.id.car_mileage_entry_info) EditText mileageInfo;
+    @BindView(R.id.car_owner_info_entry_title) TextView ownerTitle;
+    @BindView(R.id.car_owner_entry_info) EditText ownerInfo;
     private LinearLayout parentLaoyout;
+    private String make="";
+    private String model="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sell);
         ButterKnife.bind(this);
+
         requestReadPermission();
         requestCameraPermission();
         requestWritePermission();
-
+        priceTitle.setText("Price");
         Bitmap bp = BitmapFactory.decodeResource(getResources(), R.drawable.ic_addpic);
         data.add(bp);
-//        mGridView = (GridView) findViewById(R.id.gridView1);
-
         adapter = new UploadImageAdapter(getApplicationContext(), data, mGridView);
         mGridView.setAdapter(adapter);
-
-        // setOnClickItemListener
         mGridView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -85,16 +100,6 @@ public class SellActivity extends AppCompatActivity {
                 if (data.size() == 6) {
                     Toast.makeText(SellActivity.this, "Uploading limit is reached", Toast.LENGTH_SHORT).show();
                 }
-// else {
-//                    if (position == data.size() - 1) {
-//                        Toast.makeText(SellActivity.this, "Add an image", Toast.LENGTH_SHORT).show();
-//                        Intent intent = new Intent(Intent.ACTION_PICK, null);
-//                        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-//                        startActivityForResult(intent, 990);
-//                    } else {
-//                        Toast.makeText(SellActivity.this, "Click" + (position + 1) + " th image", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
                 showChoicePhoto();
             }
         });
@@ -111,8 +116,6 @@ public class SellActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveCar();
-
-//                Toast.makeText(SellActivity.this,String.valueOf(data.size()),Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -127,9 +130,41 @@ public class SellActivity extends AppCompatActivity {
 
     private void saveCar(){
         CarSchema carSchema = new CarSchema(this);
-        Car car = CarSchema.getTestCar();
-        car.setCarid("99");
+        Car car = new Car();
+
+        int car_id = CarSchema.getCarId();
+        car.setCarid(String.valueOf(car_id));
+        car.setMake(makeInfo.getText().toString());
+        car.setModel(modelInfo.getText().toString());
+        car.setYear(yearInfo.getText().toString());
+        car.setPrice(Integer.parseInt(priceInfo.getText().toString()));
+        car.setMileage(Integer.parseInt(priceInfo.getText().toString()));
+        car.setOwner(ownerInfo.getText().toString());
         List<MyImage> imageList = new ArrayList<>();
+
+
+        for(int i =0;i<data.size()-1;i++){
+            byte[] bytes = BitmapUtils.BitmapToBytes(data.get(i));
+            MyImage image = new MyImage(String.valueOf(car_id),i,bytes);
+            //Log.d(TAG,String.valueOf(i));
+            imageList.add(image);
+        }
+        //Log.d(TAG,"imagelist size"+String.valueOf(imageList.size()));
+        car.setImages(imageList);
+        //Log.d(TAG,String.valueOf(car_id));
+        carSchema.insertCar(car);
+        //CarImage.insertImages(car);
+        //Log.d(TAG,"insert successful");
+
+
+        Intent goBackIntent = new Intent(SellActivity.this,MainActivity.class);
+        startActivity(goBackIntent);
+        SellActivity.this.finish();
+
+
+//        Car car = CarSchema.getTestCar();
+//        car.setCarid("99");
+//        List<MyImage> imageList = new ArrayList<>();
 //        for(int i=0;i<data.size()-1;i++){
 //            byte[] bytes = BitmapUtils.BitmapToBytes(data.get(i));
 //            MyImage image = new MyImage(car.getCarid(),i+1,bytes);
@@ -138,7 +173,7 @@ public class SellActivity extends AppCompatActivity {
 //
 //        car.setImages(imageList);
 //        Toast.makeText(SellActivity.this,String.valueOf(imageList.size()),Toast.LENGTH_SHORT).show();
-        Toast.makeText(SellActivity.this,String.valueOf(data.size()),Toast.LENGTH_SHORT).show();
+//        Toast.makeText(SellActivity.this,String.valueOf(data.size()),Toast.LENGTH_SHORT).show();
     }
 
     protected void dialog(final int position) {
@@ -164,10 +199,8 @@ public class SellActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
-        //super.onActivityResult(requestCode, resultCode, data);
-
         switch (requestCode){
-            case USER_CAMERA:
+            case Constant.USER_CAMERA:
                 if (resultCode == RESULT_OK) {
                     BitmapFactory.Options options = new BitmapFactory.Options();
                     options.inPreferredConfig = Bitmap.Config.RGB_565;
@@ -187,8 +220,8 @@ public class SellActivity extends AppCompatActivity {
                 }
                 break;
 
-            case PICK_FROM_GALLERY:
-                if(resultCode==RESULT_OK){
+            case Constant.PICK_FROM_GALLERY:
+                if (resultCode == RESULT_OK) {
                     Uri uri = intent.getData();
                     BitmapFactory.Options options = new BitmapFactory.Options();
                     options.inPreferredConfig = Bitmap.Config.RGB_565;
@@ -199,31 +232,28 @@ public class SellActivity extends AppCompatActivity {
                     cursor.moveToFirst();
                     photoPath = cursor.getString(column_index);
                     choisePhotoPopup.dismissPopupWindow(parentLaoyout);
-                }else if(resultCode==RESULT_CANCELED){
+                } else if (resultCode == RESULT_CANCELED) {
                     choisePhotoPopup.dismissPopupWindow(parentLaoyout);
                 }
 
                 break;
+            case Constant.MakeRequestCode:
+                make = intent.getStringExtra("make");
+                if(!TextUtils.isEmpty(model)){
+                    modelInfo.setText("");
+                }
+                makeInfo.setText(make);
+                break;
+            case Constant.ModelRequestCode:
+                make = intent.getStringExtra("make");
+                model = intent.getStringExtra("model");
+                if(TextUtils.isEmpty(make)){
+                    make="All";
+                }
+                makeInfo.setText(make);
+                modelInfo.setText(model);
+                break;
         }
-//        if (requestCode == 990 && resultCode == RESULT_OK) {
-//            if (data != null) {
-//
-//                ContentResolver resolver = getContentResolver();
-//                try {
-//                    Uri uri = data.getData();
-//
-//                    String[] proj = { MediaStore.Images.Media.DATA };
-//                    Cursor cursor = managedQuery(uri, proj, null, null, null);
-//
-//                    int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-//                    cursor.moveToFirst();
-//
-//                    photoPath = cursor.getString(column_index);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
     }
 
     protected void onResume() {
@@ -243,7 +273,7 @@ public class SellActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode){
-            case PICK_FROM_GALLERY:
+            case Constant.PICK_FROM_GALLERY:
                 Log.d(TAG,"ask for read permission");
                 if(grantResults[0]==PackageManager.PERMISSION_DENIED){
                     Log.d(TAG,"get read permission failed");
@@ -251,7 +281,7 @@ public class SellActivity extends AppCompatActivity {
                     finish();
                 }
                 break;
-            case WRITE_TO_GALLERY:
+            case Constant.WRITE_TO_GALLERY:
                 Log.d(TAG,"ask for write permission");
                 if(grantResults[0]==PackageManager.PERMISSION_DENIED){
                     Log.d(TAG,"get write permission failed");
@@ -259,7 +289,7 @@ public class SellActivity extends AppCompatActivity {
                     finish();
                 }
                 break;
-            case USER_CAMERA:
+            case Constant.USER_CAMERA:
                 Log.d(TAG,"ask for camera permission");
                 if(grantResults[0]==PackageManager.PERMISSION_DENIED){
                     Log.d(TAG,"get camera permission failed");
@@ -267,26 +297,24 @@ public class SellActivity extends AppCompatActivity {
                     finish();
                 }
                 break;
-            default:
-                break;
         }
     }
 
     private void requestReadPermission(){
         if(ActivityCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PICK_FROM_GALLERY);
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},Constant.PICK_FROM_GALLERY);
         }
     }
 
     private void requestCameraPermission(){
         if(ActivityCompat.checkSelfPermission(this,Manifest.permission.CAMERA)!=PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA},USER_CAMERA);
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA},Constant.USER_CAMERA);
         }
     }
 
     private void requestWritePermission(){
         if(ActivityCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},WRITE_TO_GALLERY);
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},Constant.WRITE_TO_GALLERY);
         }
     }
 
@@ -310,7 +338,7 @@ public class SellActivity extends AppCompatActivity {
     private void takePhoto() {
         cameraFile = new File(Environment.getExternalStorageDirectory().getPath(), System.currentTimeMillis() + ".jpg");
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {   //如果在Android7.0以上,使用FileProvider获取Uri
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             Uri contentUri = FileProvider.getUriForFile(SellActivity.this, "com.example.pluto.cars", cameraFile);
 
@@ -318,12 +346,43 @@ public class SellActivity extends AppCompatActivity {
         } else {
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(cameraFile));
         }
-        startActivityForResult(intent, USER_CAMERA);
+        startActivityForResult(intent, Constant.USER_CAMERA);
     }
 
     private void choosePhoto() {
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK,null);
         photoPickerIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,"image/*");
-        startActivityForResult(photoPickerIntent, PICK_FROM_GALLERY);
+        startActivityForResult(photoPickerIntent, Constant.PICK_FROM_GALLERY);
+    }
+
+    @OnClick({R.id.car_make_entry_info,R.id.car_make_entry_title,R.id.car_model_entry_info,R.id.car_model_info_entry_title})
+//            R.id.car_year_info, R.id.car_year_info_title,R.id.car_price_info,R.id.car_price_info_title,
+//            R.id.car_mileage_info,R.id.car_mileage_info_title,R.id.car_owner_info,R.id.car_owner_info_title})
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.car_make_entry_info:
+            case R.id.car_make_entry_title:
+                Intent makeIntent = new Intent(SellActivity.this,MakeActivity.class);
+                makeIntent.putExtra("source",Constant.SellActivity);
+                startActivityForResult(makeIntent,Constant.MakeRequestCode);
+                break;
+            case R.id.car_model_entry_info:
+            case R.id.car_model_info_entry_title:
+                Intent modelIntent = new Intent(SellActivity.this,ModelActivity.class);
+                if(TextUtils.isEmpty(make)){
+                    modelIntent.putExtra("make","All");
+                }else{
+                    modelIntent.putExtra("make",make);
+                }
+                modelIntent.putExtra("source",Constant.SellActivity);
+                startActivityForResult(modelIntent,Constant.ModelRequestCode);
+                break;
+
+        }
+    }
+
+    @OnTextChanged(value = {R.id.car_year_entry_info,R.id.car_price_entry_info,R.id.car_mileage_entry_info,R.id.car_owner_entry_info},callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    public void onTextChanged(CharSequence text){
+        Log.d(TAG,String.valueOf(text));
     }
 }

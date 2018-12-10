@@ -42,7 +42,17 @@ public class MakeActivity extends AppCompatActivity {
             public void onItemClick(View view, int position) {
                 choosenMake = String.valueOf(ca.getValue(position));
                 mIntent = getIntent();
-//                mIntent
+                Log.d(TAG,String.valueOf(mIntent.getIntExtra("source",0)));
+                if(mIntent.getIntExtra("source",0)==Constant.SellActivity){
+
+                    Log.d(TAG,"enter sellactivity call");
+                    Bundle bundle = new Bundle();
+                    bundle.putString("make",choosenMake);
+                    mIntent.putExtras(bundle);
+                    setResult(Constant.MakeRequestCode,mIntent);
+                    MakeActivity.this.finish();
+                    return;
+                }
                 mIntent.setClass(MakeActivity.this,ModelActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("make",choosenMake);

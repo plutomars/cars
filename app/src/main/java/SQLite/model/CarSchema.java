@@ -28,7 +28,8 @@ public final class CarSchema {
     private static MyDBHelper myDBHelper;
     private static SQLiteDatabase sqLiteDatabase;
     private static final String TAG ="CarSchema";
-    private static final String query = "SELECT * FROM cars_table WHERE make ";
+//    private static final String query = "SELECT * FROM cars_table WHERE make ";
+    private static final String MAXID_QUERY = "SELECT MAX(car_id) FROM cars_table";
     private static List<Car> carList=new ArrayList<>();
     private static Context mContext;
 
@@ -39,6 +40,9 @@ public final class CarSchema {
         Log.d(TAG,"carschema instance initialized");
     }
 
+    /*
+    * insert car data and car images at once
+    */
     public void insertCar(Car car){
         ContentValues contentValues = getContentValue(car);
         sqLiteDatabase.insert(MyDBHelper.CAR_TABLE_NAME,null, contentValues);
@@ -78,13 +82,13 @@ public final class CarSchema {
                         car.setCarid(cursor.getString(cursor.getColumnIndex(CarSchema.CARID)));
                         car.setMake(cursor.getString(cursor.getColumnIndex(CarSchema.MAKE)));
                         car.setModel(cursor.getString(cursor.getColumnIndex(CarSchema.MODEL)));
-                        car.setYear(cursor.getInt(cursor.getColumnIndex(CarSchema.YEAR)));
+                        car.setYear(cursor.getString(cursor.getColumnIndex(CarSchema.YEAR)));
                         car.setPrice(cursor.getInt(cursor.getColumnIndex(CarSchema.PRICE)));
                         car.setLocation(cursor.getFloat(cursor.getColumnIndex(CarSchema.LOCATION)));
                         car.setMileage(cursor.getInt(cursor.getColumnIndex(CarSchema.MILEAGE)));
                         car.setOwner(cursor.getString(cursor.getColumnIndex(CarSchema.OWNER)));
-//                        CarImage.getInstance(mContext);
-//                        CarImage.setImages(car);
+                        CarImage.getInstance(mContext);
+                        CarImage.setImages(car);
                         carList.add(car);
                     } while (cursor.moveToNext());
                 }
@@ -97,6 +101,22 @@ public final class CarSchema {
             }
         }
         return carList;
+    }
+
+    public static int getCarId(){
+        Cursor cursor = sqLiteDatabase.rawQuery(MAXID_QUERY,null);
+        int max = 0;
+        try{
+            cursor.moveToFirst();
+            max= cursor.getInt(0);
+        }finally{
+            if (cursor!=null && !cursor.isClosed()){
+                cursor.close();
+            }
+        }
+        return max+1;
+//        Log.d(TAG,String.valueOf(a));
+        //return cursor.getInt(cursor.getColumnIndex("car_id"))+1;
     }
 
     public static Car getTestCar(){
@@ -112,13 +132,13 @@ public final class CarSchema {
             car.setCarid(cursor.getString(cursor.getColumnIndex(CarSchema.CARID)));
             car.setMake(cursor.getString(cursor.getColumnIndex(CarSchema.MAKE)));
             car.setModel(cursor.getString(cursor.getColumnIndex(CarSchema.MODEL)));
-            car.setYear(cursor.getInt(cursor.getColumnIndex(CarSchema.YEAR)));
+            //car.setYear(cursor.getInt(cursor.getColumnIndex(CarSchema.YEAR)));
             car.setPrice(cursor.getInt(cursor.getColumnIndex(CarSchema.PRICE)));
             car.setLocation(cursor.getFloat(cursor.getColumnIndex(CarSchema.LOCATION)));
             car.setMileage(cursor.getInt(cursor.getColumnIndex(CarSchema.MILEAGE)));
             car.setOwner(cursor.getString(cursor.getColumnIndex(CarSchema.OWNER)));
             CarImage.getInstance(mContext);
-//            CarImage.setImages(car);
+            CarImage.setImages(car);
         }finally {
             if(cursor!=null && !cursor.isClosed()){
                 cursor.close();

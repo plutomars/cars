@@ -86,6 +86,7 @@ public final class CarImage {
 
     private static void insertSingleImage(MyImage imageObj){
         ContentValues contentValues = getContentValue(imageObj);
+        Log.d(TAG,imageObj.getCarid());
         sqLiteDatabase.insert(MyDBHelper.CAR_IMAGE_TABLE_NAME,null,contentValues);
         Log.d(TAG,"insertImage successful");
     }
@@ -107,9 +108,11 @@ public final class CarImage {
 
     public static void insertImages(Car car){
         if(car.getImages().size()==0)return;
+        Log.d(TAG,String.valueOf(car.getImages().size()));
         for(MyImage myImage:car.getImages()){
-            System.out.print(car.getImages().size());
-            //insertSingleImage(myImage);
+            //System.out.print(car.getImages().size());
+            Log.d(TAG,myImage.getCarid()+"-"+String.valueOf(myImage.getImg_no()));
+            insertSingleImage(myImage);
         }
     }
 }

@@ -127,7 +127,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
 
     private void createCarsTable(SQLiteDatabase db){
         String sqlCmd = String.format("CREATE TABLE IF NOT EXISTS %s ( %s TEXT PRIMARY KEY ,"+
-        " %s TEXT , %s TEXT , %s INTEGER , %s INTEGER , %s REAL , %s INTEGER , %s TEXT ) ",CAR_TABLE_NAME,
+        " %s TEXT , %s TEXT , %s TEXT , %s INTEGER , %s REAL , %s INTEGER , %s TEXT ) ",CAR_TABLE_NAME,
                 CarSchema.CARID,CarSchema.MAKE,CarSchema.MODEL,CarSchema.YEAR,CarSchema.PRICE,CarSchema.LOCATION,
                 CarSchema.MILEAGE,CarSchema.OWNER);
         db.execSQL(sqlCmd);

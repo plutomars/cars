@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/car_info_entry">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/car_make_entry_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="30dp"
+            android:paddingBottom="10dp"
+            android:textSize="20dp"
+            android:layout_weight="1"
+            android:text="@string/make"/>
+
+        <EditText
+            android:id="@+id/car_make_entry_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/info_color"
+            android:paddingBottom="10dp"
+            android:textSize="20dp"
+            android:layout_weight="0.8"/>
+    </LinearLayout>
+
+    <!--model-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/car_model_info_entry_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="30dp"
+            android:paddingBottom="10dp"
+            android:textSize="20dp"
+            android:layout_weight="1"
+            android:text="@string/model"/>
+
+        <EditText
+            android:id="@+id/car_model_entry_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/info_color"
+            android:paddingBottom="10dp"
+            android:textSize="20dp"
+            android:layout_weight="0.8"/>
+    </LinearLayout>
+
+    <!--year-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/car_year_info_entry_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="30dp"
+            android:paddingBottom="10dp"
+            android:textSize="20dp"
+            android:layout_weight="1"
+            android:text = "@string/year"/>
+
+        <EditText
+            android:id="@+id/car_year_entry_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/info_color"
+            android:paddingBottom="10dp"
+            android:textSize="20dp"
+            android:layout_weight="0.8"/>
+    </LinearLayout>
+
+    <!--price-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/car_price_info_entry_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="30dp"
+            android:paddingBottom="10dp"
+            android:textSize="20dp"
+            android:layout_weight="1"
+            android:text = "@string/price"/>
+
+        <EditText
+            android:id="@+id/car_price_entry_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/info_color"
+            android:paddingBottom="10dp"
+            android:textSize="20dp"
+            android:layout_weight="0.8"/>
+    </LinearLayout>
+
+    <!--mileage-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/car_mileage_info_entry_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="30dp"
+            android:paddingBottom="10dp"
+            android:textSize="20dp"
+            android:layout_weight="1"
+            android:text = "@string/mileage"/>
+
+        <EditText
+            android:id="@+id/car_mileage_entry_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/info_color"
+            android:paddingBottom="10dp"
+            android:textSize="20dp"
+            android:layout_weight="0.8"/>
+    </LinearLayout>
+    <!--owner-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/car_owner_info_entry_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="30dp"
+            android:paddingBottom="10dp"
+            android:textSize="20dp"
+            android:layout_weight="1"
+            android:text = "@string/owner"/>
+
+        <EditText
+            android:id="@+id/car_owner_entry_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/info_color"
+            android:paddingBottom="10dp"
+            android:textSize="20dp"
+            android:layout_weight="0.8"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -21,7 +21,6 @@ public class CategorySingleton {
     private static List<String> mileageObjList;
 
     public static CategorySingleton getInstance(Context context){
-        Log.d(TAG,"Singleton enter");
         if (mCategorySingleton==null){
             mCategorySingleton = new CategorySingleton(context);
         }
@@ -34,36 +33,10 @@ public class CategorySingleton {
         categoryList = CarDB.getAllMake();
         modelList = CarDB.getAllModels();
         String[] pricelist =context.getResources().getStringArray(R.array.Max_price);
-        //Log.d(TAG,String.valueOf(pricelist.length));
         priceObjList = Arrays.asList(pricelist);
-//        priceObjList = new ArrayList<>();
-//        for(String s:pricelist){
-////            Category Category = new Category();
-//            priceObjList.add(s);
-//        }
         String[] mileagelist =context.getResources().getStringArray(R.array.Mileages);
         mileageObjList = new ArrayList<>();
         mileageObjList =Arrays.asList(mileagelist);
-//        for(String s:mileagelist){
-////            Category Category = new Category();
-//            mileageObjList.add(s);
-//        }
-        //categoryList=new ArrayList<Category>();
-        //String[] categories = context.getResources().getStringArray(R.array.Make_array);
-
-//        for(String s:categories){
-//            Log.d(TAG,s);
-//        }
-//
-//        Log.d(TAG,Integer.toString(categories.length));
-
-//        for(String s:categories){
-//            String[] value = s.split("-");
-//            Category cat = new Category(Integer.parseInt(value[0]),value[1]);
-//            categoryList.add(cat);
-//        }
-        //to test is anything in the category list
-        //Log.d(TAG,categoryList.get(1).getType()+","+categoryList.get(1).getCategoryName());
     }
 
     public static List<Category> getCategoryList(){

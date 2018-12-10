@@ -6,127 +6,136 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".SearchActivity"
-    android:showDividers="middle|end"
     android:divider="@android:drawable/divider_horizontal_textfield">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:id="@+id/searchUpRegion"
+        android:showDividers="middle|end"
+        android:orientation="vertical"
+        android:divider="@android:drawable/divider_horizontal_textfield">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:id="@+id/make_title"
-            android:text="@string/make"
-            android:textSize="28dp"
-            android:paddingLeft="20dp"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-        <TextView
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:id="@+id/make_title"
+                android:text="@string/make"
+                android:textSize="28dp"
+                android:paddingLeft="20dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:id="@+id/make_info"
+                android:textAlignment="viewEnd"
+                android:textSize="28dp"
+                android:paddingRight="15dp"/>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:id="@+id/make_info"
-            android:textAlignment="viewEnd"
-            android:textSize="28dp"
-            android:paddingRight="15dp"/>
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:id="@+id/model_title"
+                android:text="@string/model"
+                android:textSize="28dp"
+                android:paddingLeft="20dp"/>
 
-        <TextView
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:id="@+id/model_info"
+                android:textAlignment="viewEnd"
+                android:textSize="28dp"
+                android:paddingRight="15dp"/>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:id="@+id/model_title"
-            android:text="@string/model"
-            android:textSize="28dp"
-            android:paddingLeft="20dp"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-        <TextView
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:id="@+id/year_title"
+                android:text="@string/year"
+                android:textSize="28dp"
+                android:paddingLeft="20dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:id="@+id/year_info"
+                android:textAlignment="viewEnd"
+                android:textSize="28dp"
+                android:paddingRight="15dp"/>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:id="@+id/model_info"
-            android:textAlignment="viewEnd"
-            android:textSize="28dp"
-            android:paddingRight="15dp"/>
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:id="@+id/price_title"
+                android:text="@string/price"
+                android:textSize="28dp"
+                android:paddingLeft="20dp"/>
 
-        <TextView
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:id="@+id/price_info"
+                android:textAlignment="viewEnd"
+                android:textSize="28dp"
+                android:paddingRight="15dp"/>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:id="@+id/year_title"
-            android:text="@string/year"
-            android:textSize="28dp"
-            android:paddingLeft="20dp"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:id="@+id/year_info"
-            android:textAlignment="viewEnd"
-            android:textSize="28dp"
-            android:paddingRight="15dp"/>
-    </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:id="@+id/mileage_title"
+                android:text="@string/mileage"
+                android:textSize="28dp"
+                android:paddingLeft="20dp"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:id="@+id/mileage_info"
+                android:textAlignment="viewEnd"
+                android:textSize="28dp"
+                android:paddingRight="15dp"/>
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:id="@+id/price_title"
-            android:text="@string/price"
-            android:textSize="28dp"
-            android:paddingLeft="20dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:id="@+id/price_info"
-            android:textAlignment="viewEnd"
-            android:textSize="28dp"
-            android:paddingRight="15dp"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:id="@+id/mileage_title"
-            android:text="@string/mileage"
-            android:textSize="28dp"
-            android:paddingLeft="20dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:id="@+id/mileage_info"
-            android:textAlignment="viewEnd"
-            android:textSize="28dp"
-            android:paddingRight="15dp"/>
     </LinearLayout>
 
     <Button

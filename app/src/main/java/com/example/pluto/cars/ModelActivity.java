@@ -43,8 +43,17 @@ public class ModelActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 choosenModel = String.valueOf(ca.getValue(position));
-                Log.d(TAG,passMake);
-                Log.d(TAG,String.valueOf(singleCall));
+                mIntent = getIntent();
+
+                if(mIntent.getIntExtra("source",0)==Constant.SellActivity){
+                    Log.d(TAG,"enter sellactivity call");
+                    Bundle bundle = new Bundle();
+                    bundle.putString("model",choosenModel);
+                    mIntent.putExtras(bundle);
+                    setResult(Constant.ModelRequestCode,mIntent);
+                    ModelActivity.this.finish();
+                    return;
+                }
 
                 Bundle bundle = new Bundle();
                 bundle.putString("make",passMake);
