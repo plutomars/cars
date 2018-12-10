@@ -1,6 +1,8 @@
 package Model;
 
-public class MyImage {
+import java.io.Serializable;
+
+public class MyImage implements Serializable {
 
     private String carid;
     private int img_no;

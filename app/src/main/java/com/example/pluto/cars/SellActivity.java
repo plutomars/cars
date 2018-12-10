@@ -161,7 +161,7 @@ public class SellActivity extends AppCompatActivity {
         CarSchema carSchema = new CarSchema(this);
         Car car = new Car();
 
-        int car_id = CarSchema.getCarId();
+        int car_id = carSchema.getCarId();
         car.setCarid(String.valueOf(car_id));
         car.setMake(makeInfo.getText().toString());
         car.setModel(modelInfo.getText().toString());
@@ -171,6 +171,7 @@ public class SellActivity extends AppCompatActivity {
         car.setOwner(ownerInfo.getText().toString());
         List<MyImage> imageList = new ArrayList<>();
 
+        Log.d(TAG,"data size"+String.valueOf(data.size()));
 
         for(int i =0;i<data.size()-1;i++){
             byte[] bytes = BitmapUtils.BitmapToBytes(data.get(i));
@@ -178,12 +179,12 @@ public class SellActivity extends AppCompatActivity {
             //Log.d(TAG,String.valueOf(i));
             imageList.add(image);
         }
-        //Log.d(TAG,"imagelist size"+String.valueOf(imageList.size()));
+        Log.d(TAG,"imagelist size"+String.valueOf(imageList.size()));
         car.setImages(imageList);
         //Log.d(TAG,String.valueOf(car_id));
         carSchema.insertCar(car);
         //CarImage.insertImages(car);
-        //Log.d(TAG,"insert successful");
+        Log.d(TAG,"insert successful");
 
 
         Intent goBackIntent = new Intent(SellActivity.this,MainActivity.class);

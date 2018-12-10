@@ -39,13 +39,6 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_result_list);
         mIntent = getIntent();
-
-//        String make = getIntent().getExtras().getString("make");
-//        String model = getIntent().getExtras().getString("model");
-//        String year = getIntent().getExtras().getString("year");
-//        String price = getIntent().getExtras().getString("price");
-//        String mileage = getIntent().getExtras().getString("mileage");
-
         make = mIntent.getStringExtra("make");
         model = mIntent.getStringExtra("model");
         year = mIntent.getStringExtra("year");
@@ -77,15 +70,19 @@ public class ResultActivity extends AppCompatActivity {
         List<Car> carList = carSchema.getCarList(cursor);
         SearchResultAdapter SR = new SearchResultAdapter(this,carList);
 
-
         SR.setOnItemClickListener(new SearchResultAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 mIntent = getIntent();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Car",carList.get(position));
+                //bundle.putString("car_id",carList.get(position).getCarid());
+                mIntent.putExtras(bundle);
+                //mIntent.putExtra("car_id",carList.get(position).getCarid());
                 mIntent.setClass(ResultActivity.this, CarActivity.class);
+
                 Toast.makeText(ResultActivity.this,"going",Toast.LENGTH_SHORT).show();
                 startActivity(mIntent);
-
             }
         });
 

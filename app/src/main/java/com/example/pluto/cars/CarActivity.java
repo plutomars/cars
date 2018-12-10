@@ -27,10 +27,11 @@ import butterknife.ButterKnife;
 
 public class CarActivity extends AppCompatActivity {
 
-    private static final String EXTRA_CARID="carid";
+    //private static final String EXTRA_CARID="carid";
     private static final String TAG="CarActivity";
 
     private List<MyImage> imageList;
+    private Intent mIntent;
 
     @BindView(R.id.car_make_info_title) TextView makeTitle;
     @BindView(R.id.car_make_info) TextView makeInfo;
@@ -51,8 +52,18 @@ public class CarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car);
         ButterKnife.bind(this);
-        CarSchema carSchema = new CarSchema(this);
-        Car car = CarSchema.getTestCar();
+        mIntent=getIntent();
+        Car car = (Car)mIntent.getSerializableExtra("Car");
+        //String carid = mIntent.getStringExtra("car_id");
+        //Log.d(TAG,carid);
+//        Car car = null;
+//        car = mIntent.getSerializableExtra("Car");
+
+
+        //CarSchema carSchema = new CarSchema(this);
+
+        //Car car = CarSchema.getTestCar();
+        Log.d(TAG,car.getCarid());
 
         makeInfo.setText(car.getMake());
         modelInfo.setText(car.getModel());
@@ -60,6 +71,8 @@ public class CarActivity extends AppCompatActivity {
         priceInfo.setText(String.valueOf(car.getPrice()));
         mileageInfo.setText(String.valueOf(car.getMileage()));
         ownerInfo.setText(car.getOwner());
+
+        Log.d(TAG,String.valueOf(car.getImages().size()));
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         viewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {

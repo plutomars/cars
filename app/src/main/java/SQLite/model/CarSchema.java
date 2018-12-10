@@ -39,6 +39,7 @@ public final class CarSchema {
         myDBHelper = MyDBHelper.getInstance(mContext);
         sqLiteDatabase = myDBHelper.getWritableDatabase();
         Log.d(TAG,"carschema instance initialized");
+        CarImage carImage = CarImage.getInstance(mContext);
     }
 
     /*
@@ -47,6 +48,7 @@ public final class CarSchema {
     public void insertCar(Car car){
         ContentValues contentValues = getContentValue(car);
         sqLiteDatabase.insert(MyDBHelper.CAR_TABLE_NAME,null, contentValues);
+        Log.d(TAG,String.valueOf(car.getImages().size()));
         CarImage.insertImages(car);
     }
 
@@ -116,7 +118,7 @@ public final class CarSchema {
         return carList;
     }
 
-    public static int getCarId(){
+    public int getCarId(){
         Cursor cursor = sqLiteDatabase.rawQuery(MAXID_QUERY,null);
         int max = 0;
         try{
@@ -159,6 +161,11 @@ public final class CarSchema {
     }
     private static ContentValues getContentValue(Car car){
         ContentValues c = new ContentValues();
+
+
+        Log.d(TAG,"Car id="+String.valueOf(car.getCarid()));
+        Log.d(TAG,"Car Make="+car.getMake());
+        Log.d(TAG,"Car model="+car.getModel());
         c.put(CarSchema.CARID,car.getCarid());
         c.put(CarSchema.MAKE,car.getMake());
         c.put(CarSchema.MODEL,car.getModel());

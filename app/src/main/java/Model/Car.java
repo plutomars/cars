@@ -1,9 +1,10 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Car {
+public class Car implements Serializable {
     private String carid;
     private String make;
     private String model;
@@ -13,7 +14,6 @@ public class Car {
     private int mileage;
     private String owner;
     private List<MyImage> images = new ArrayList<>();
-
 
     public List<MyImage> getImages() {
         return images;
