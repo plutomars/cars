@@ -1,5 +1,7 @@
 package Utils;
 
+import android.text.TextUtils;
+
 import java.util.List;
 
 import SQLite.model.CarSchema;
@@ -12,8 +14,12 @@ public class PjUtils {
     }
 
     public static String[] getYear(String yearStr){
-        String[] array = yearStr.split(",");
-        return array;
+
+        if(TextUtils.isEmpty(yearStr)){
+            return new String[]{};
+        }else{
+            return yearStr.split(",");
+        }
     }
 
     public static String buildYears(String yearStr){

@@ -33,6 +33,7 @@ public class CarDB {
             makeList = new ArrayList<>();
             Cursor cursor = database.rawQuery(QUERY_ALL_MAKE, null);
             try {
+
                 if (cursor.moveToFirst()) {
                     do {
                         int mType = cursor.getInt(cursor.getColumnIndex("category_type"));

@@ -24,7 +24,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private List<Category> mListItems;
     private static final String TAG="CategoryAdpater";
     private OnItemClickListener mOnItemClickListener;
-    public Object value;
+    //public Object value;
 
     public interface OnItemClickListener{
         void onItemClick(View view,int position);

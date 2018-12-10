@@ -160,7 +160,10 @@ public class SearchActivity extends AppCompatActivity {
                 allBundle.putString("year",year);
                 allBundle.putString("price",price);
                 allBundle.putString("mileage",mileage);
-                startActivity(searchIntent,allBundle);
+                searchIntent.putExtras(allBundle);
+//                startActivity(searchIntent,allBundle);
+                startActivity(searchIntent);
+                break;
         }
     }
 }

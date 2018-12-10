@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.util.Log;
 
 import java.nio.file.LinkOption;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +58,12 @@ public final class CarSchema {
     *
     */
     public synchronized Cursor queryCar(String make,String model,int price,int mileage,String[] years){
+        if(make==null || make.equals("All")){
+            make="";
+        }
+        if(model==null || model.equals("All")){
+            model="";
+        }
         String whereClause = PjUtils.createWhereClause(years);
         List<String> list = new ArrayList<>();
         list.add(make+"%");
@@ -64,6 +71,11 @@ public final class CarSchema {
         list.add(String.valueOf(price));
         list.add(String.valueOf(mileage));
         String[] whereArgs = PjUtils.createWhereArgs(list,years);
+
+        Log.d(TAG,"WhereClause"+whereClause);
+        for(String s:whereArgs){
+            Log.d(TAG,"WhereArgs "+s);
+        }
 
         Cursor cursor = sqLiteDatabase.query(MyDBHelper.CAR_TABLE_NAME,null,whereClause,whereArgs,null,null,null);
         return cursor;
@@ -116,8 +128,6 @@ public final class CarSchema {
             }
         }
         return max+1;
-//        Log.d(TAG,String.valueOf(a));
-        //return cursor.getInt(cursor.getColumnIndex("car_id"))+1;
     }
 
     public static Car getTestCar(){

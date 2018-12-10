@@ -13,12 +13,14 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.LongDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -60,6 +62,12 @@ public class SellActivity extends AppCompatActivity {
     private File cameraFile;
     //Make a choice to get an image by using the camera or from the gallery
     private PhotoChoiceWindow choisePhotoPopup;
+    private static final int MULTIPLE_PERMISSIONS=10;
+    private final String[] multi_permission = new String[]{
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
     @BindView(R.id.send_btn) Button mSendButton;
     @BindView(R.id.gridView1) GridView mGridView;
 
@@ -85,10 +93,10 @@ public class SellActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sell);
         ButterKnife.bind(this);
 
-        requestReadPermission();
-        requestCameraPermission();
-        requestWritePermission();
+
         priceTitle.setText("Price");
+        makeInfo.setInputType(InputType.TYPE_NULL);
+        modelInfo.setInputType(InputType.TYPE_NULL);
         Bitmap bp = BitmapFactory.decodeResource(getResources(), R.drawable.ic_addpic);
         data.add(bp);
         adapter = new UploadImageAdapter(getApplicationContext(), data, mGridView);
@@ -100,7 +108,13 @@ public class SellActivity extends AppCompatActivity {
                 if (data.size() == 6) {
                     Toast.makeText(SellActivity.this, "Uploading limit is reached", Toast.LENGTH_SHORT).show();
                 }
-                showChoicePhoto();
+                if(checkPermissions()){
+                    showChoicePhoto();
+                }
+//                requestReadPermission();
+//                requestCameraPermission();
+//                requestWritePermission();
+
             }
         });
 
@@ -127,6 +141,21 @@ public class SellActivity extends AppCompatActivity {
         parentLaoyout.setAlpha((float) 0.3);
     }
 
+    private boolean checkPermissions(){
+        int result;
+        List<String> listPermissionNeeded = new ArrayList<>();
+        for(String s:multi_permission){
+            result = ActivityCompat.checkSelfPermission(this,s);
+            if(result!=PackageManager.PERMISSION_GRANTED){
+                listPermissionNeeded.add(s);
+            }
+        }
+        if(!listPermissionNeeded.isEmpty()){
+            ActivityCompat.requestPermissions(this,listPermissionNeeded.toArray(new String[listPermissionNeeded.size()]),MULTIPLE_PERMISSIONS);
+            return false;
+        }
+        return true;
+    }
 
     private void saveCar(){
         CarSchema carSchema = new CarSchema(this);
@@ -273,50 +302,78 @@ public class SellActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode){
-            case Constant.PICK_FROM_GALLERY:
-                Log.d(TAG,"ask for read permission");
-                if(grantResults[0]==PackageManager.PERMISSION_DENIED){
-                    Log.d(TAG,"get read permission failed");
-                    Toast.makeText(SellActivity.this,"read permission is needed",Toast.LENGTH_SHORT).show();
-                    finish();
-                }
-                break;
-            case Constant.WRITE_TO_GALLERY:
-                Log.d(TAG,"ask for write permission");
-                if(grantResults[0]==PackageManager.PERMISSION_DENIED){
-                    Log.d(TAG,"get write permission failed");
-                    Toast.makeText(SellActivity.this,"write permission is needed",Toast.LENGTH_SHORT).show();
-                    finish();
-                }
-                break;
-            case Constant.USER_CAMERA:
-                Log.d(TAG,"ask for camera permission");
-                if(grantResults[0]==PackageManager.PERMISSION_DENIED){
-                    Log.d(TAG,"get camera permission failed");
-                    Toast.makeText(SellActivity.this,"camera permission is needed",Toast.LENGTH_SHORT).show();
-                    finish();
+//            case Constant.PICK_FROM_GALLERY:
+//                Log.d(TAG,"ask for read permission");
+//                if(grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_DENIED){
+//                    Log.d(TAG,"get read permission failed");
+//                    Toast.makeText(SellActivity.this,"read permission is needed",Toast.LENGTH_SHORT).show();
+//                    finish();
+//                }
+//                break;
+//            case Constant.WRITE_TO_GALLERY:
+//                Log.d(TAG,"ask for write permission");
+//                if(grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_DENIED){
+//                    Log.d(TAG,"get write permission failed");
+//                    Toast.makeText(SellActivity.this,"write permission is needed",Toast.LENGTH_SHORT).show();
+//                    finish();
+//                }
+//                break;
+//            case Constant.USER_CAMERA:
+//                Log.d(TAG,"ask for camera permission");
+//                if(grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_DENIED){
+//                    Log.d(TAG,"get camera permission failed");
+//                    Toast.makeText(SellActivity.this,"camera permission is needed",Toast.LENGTH_SHORT).show();
+//                    finish();
+//                }
+//                break;
+            case MULTIPLE_PERMISSIONS:
+                if(grantResults.length>0){
+                    //String permissionDenies="";
+                    for(String str:permissions){
+                        if(grantResults[0]==PackageManager.PERMISSION_DENIED){
+                            Toast.makeText(SellActivity.this,str+"permission is needed",Toast.LENGTH_SHORT);
+                        }
+                    }
                 }
                 break;
         }
     }
 
-    private void requestReadPermission(){
-        if(ActivityCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},Constant.PICK_FROM_GALLERY);
-        }
-    }
-
-    private void requestCameraPermission(){
-        if(ActivityCompat.checkSelfPermission(this,Manifest.permission.CAMERA)!=PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA},Constant.USER_CAMERA);
-        }
-    }
-
-    private void requestWritePermission(){
-        if(ActivityCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},Constant.WRITE_TO_GALLERY);
-        }
-    }
+//    private void requestReadPermission(){
+//        if(ActivityCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED){
+//            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+//                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+//                // Show an explanation to the user *asynchronously* -- don't block
+//                // this thread waiting for the user's response! After the user
+//                // sees the explanation, try again to request the permission.
+//            } else {
+//                ActivityCompat.requestPermissions(this,
+//                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+//                        Constant.PICK_FROM_GALLERY);
+//            }
+//            //ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},Constant.PICK_FROM_GALLERY);
+//        }
+//    }
+//
+//    private void requestCameraPermission(){
+//        if(ActivityCompat.checkSelfPermission(this,Manifest.permission.CAMERA)!=PackageManager.PERMISSION_GRANTED){
+//            if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.CAMERA)){
+//
+//            }else{
+//                ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA},Constant.USER_CAMERA);
+//            }
+//        }
+//    }
+//
+//    private void requestWritePermission(){
+//        if(ActivityCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED){
+//            if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.CAMERA)){
+//
+//            }else{
+//                ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},Constant.WRITE_TO_GALLERY);
+//            }
+//        }
+//    }
 
     private View.OnClickListener choicePhotoCilck = new View.OnClickListener() {
         @Override
@@ -381,8 +438,21 @@ public class SellActivity extends AppCompatActivity {
         }
     }
 
-    @OnTextChanged(value = {R.id.car_year_entry_info,R.id.car_price_entry_info,R.id.car_mileage_entry_info,R.id.car_owner_entry_info},callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-    public void onTextChanged(CharSequence text){
+//    @OnTextChanged(value = {R.id.car_year_entry_info,R.id.car_price_entry_info,R.id.car_mileage_entry_info,R.id.car_owner_entry_info},callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+//    public void onTextChanged(CharSequence text){
+//
+//        Log.d(TAG,String.valueOf(text));
+//    }
+
+    @OnTextChanged(value = {R.id.car_year_entry_info,R.id.car_price_entry_info,R.id.car_mileage_entry_info},callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    public void digitOnly(CharSequence text){
+        Log.d(TAG,"digit");
+        Log.d(TAG,String.valueOf(text));
+    }
+
+    @OnTextChanged(value = {R.id.car_owner_entry_info},callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    public void engOnly(CharSequence text){
+        Log.d(TAG,"eng");
         Log.d(TAG,String.valueOf(text));
     }
 }

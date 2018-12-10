@@ -26,6 +26,7 @@ import SQLite.helper.MyDBHelper;
 import SQLite.model.CarDB;
 import SQLite.model.CarImage;
 import SQLite.model.CarSchema;
+import Utils.PjUtils;
 
 
 public class TestActivity extends AppCompatActivity {
@@ -35,11 +36,37 @@ public class TestActivity extends AppCompatActivity {
     private Button saveButton;
     private InputStream inputStream=null;
     private ByteArrayOutputStream byteArrayOutputStream = null;
-
+    private Button testButton;
+    private Button testButton2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_test);
+        setContentView(R.layout.acitvity_test);
+
+        CarSchema carSchema = new CarSchema(this);
+
+        testButton = findViewById(R.id.testButton);
+        testButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //String[] years = new String[]{""};
+                //Cursor cursor =carSchema.queryCar("Honda","Civic",30000,1000000,years);
+
+                String[] years = PjUtils.getYear("");
+                //List<Car> list = carSchema.getCarList(cursor);
+                Log.d(TAG,String.valueOf(years.length));
+            }
+        });
+
+        testButton2 = findViewById(R.id.testButton2);
+        testButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String s = PjUtils.buildYears("2016,2017,");
+                Log.d(TAG,s);
+            }
+        });
+
 //        loadingData();
 //
 //        testImageView = (ImageView)findViewById(R.id.testImageView);
