@@ -73,16 +73,22 @@ public class ResultActivity extends AppCompatActivity {
         SR.setOnItemClickListener(new SearchResultAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                mIntent = getIntent();
+                Intent getCarIntent = new Intent();
+                //mIntent = getIntent();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("Car",carList.get(position));
+                Log.d(TAG,"Position="+String.valueOf(position));
                 //bundle.putString("car_id",carList.get(position).getCarid());
-                mIntent.putExtras(bundle);
+                Car testCar = carList.get(position);
+                Log.d(TAG,"Test carid ="+testCar.getImages().get(0).getCarid());
+                Log.d(TAG,"Test imgno="+String.valueOf(testCar.getImages().get(0).getImg_no()));
+                Log.d(TAG,String.valueOf(testCar.getImages().get(0).getImage().length));
+                getCarIntent.putExtras(bundle);
                 //mIntent.putExtra("car_id",carList.get(position).getCarid());
-                mIntent.setClass(ResultActivity.this, CarActivity.class);
+                getCarIntent.setClass(ResultActivity.this, CarActivity.class);
 
                 Toast.makeText(ResultActivity.this,"going",Toast.LENGTH_SHORT).show();
-                startActivity(mIntent);
+                startActivity(getCarIntent);
             }
         });
 
