@@ -187,7 +187,7 @@ public class SellActivity extends AppCompatActivity {
         car.setModel(modelInfo.getText().toString());
         car.setYear(yearInfo.getText().toString());
         car.setPrice(Integer.parseInt(priceInfo.getText().toString()));
-        car.setMileage(Integer.parseInt(priceInfo.getText().toString()));
+        car.setMileage(Integer.parseInt(mileageInfo.getText().toString()));
         car.setOwner(ownerInfo.getText().toString());
         List<MyImage> imageList = new ArrayList<>();
 
