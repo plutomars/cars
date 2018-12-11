@@ -8,6 +8,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
     private Button mBuyButton;
     private Button mSellButton;
     private TextView mWelcomeTextView;
+    private TextView sellText;
+    private TextView buytext;
+    private ImageView mswipeimg;
     private static final String TAG = "MainActivity";
 
     @Override
@@ -39,28 +43,13 @@ public class MainActivity extends AppCompatActivity {
                 return mGestureDetector.onTouchEvent(event);
             }
         });
-        mBuyButton = (Button) findViewById(R.id.btnBuy);
-        mBuyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-                Bundle extras = new Bundle();
-                startActivity(intent);
-            }
-        });
 
-        mSellButton = (Button)findViewById(R.id.btnSell);
-        mSellButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,SellActivity.class);
-                startActivity(intent);
-                //finish();
-            }
-        });
+
 
         mWelcomeTextView = (TextView)findViewById(R.id.txtViewWelcome);
-
+        sellText = (TextView)findViewById(R.id.sell);
+        buytext = (TextView)findViewById(R.id.buy);
+        mswipeimg =(ImageView)findViewById(R.id.img);
 
     }
     private class SwipeDetector extends GestureDetector.SimpleOnGestureListener {
@@ -74,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 if (dx > MIN_DISTANCE && Math.abs(dy) < MAX_OFF_PATH &&
                         Math.abs(velocityX) > THRESHOLD_VELOCITY) {
                     startActivity(new Intent(MainActivity.this, SellActivity.class));
+                    MainActivity.this.overridePendingTransition(R.xml.right, R.xml.left);
                     return true;
                 }
 
