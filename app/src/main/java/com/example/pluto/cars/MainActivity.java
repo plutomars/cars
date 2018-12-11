@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
                 if (dx > MIN_DISTANCE && Math.abs(dy) < MAX_OFF_PATH &&
                         Math.abs(velocityX) > THRESHOLD_VELOCITY) {
                     startActivity(new Intent(MainActivity.this, SellActivity.class));
-                    MainActivity.this.overridePendingTransition(R.xml.right, R.xml.left);
                     return true;
                 }
 
