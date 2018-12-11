@@ -121,14 +121,17 @@ public final class CarSchema {
     public int getCarId(){
         Cursor cursor = sqLiteDatabase.rawQuery(MAXID_QUERY,null);
         int max = 0;
-        try{
+        if(cursor!=null){
             cursor.moveToFirst();
-            max= cursor.getInt(0);
-        }finally{
-            if (cursor!=null && !cursor.isClosed()){
-                cursor.close();
+            try{
+                max= cursor.getInt(0);
+            }finally{
+                if (cursor!=null && !cursor.isClosed()){
+                    cursor.close();
+                }
             }
         }
+        Log.d(TAG,String.valueOf(max));
         return max+1;
     }
 

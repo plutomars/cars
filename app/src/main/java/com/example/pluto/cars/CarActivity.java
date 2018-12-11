@@ -87,4 +87,13 @@ public class CarActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        mIntent=getIntent();
+//        Car car = (Car)mIntent.getSerializableExtra("Car");
+    }
+
+
 }

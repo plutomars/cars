@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Adapter.CategoryAdapter;
@@ -18,6 +19,7 @@ import Model.Car;
 import Model.CategorySingleton;
 import Model.Constant;
 import Model.DividerItemDecoration;
+import SQLite.model.CarImage;
 import SQLite.model.CarSchema;
 import Utils.PjUtils;
 
@@ -33,6 +35,7 @@ public class ResultActivity extends AppCompatActivity {
     private int i_mileage=0;
     private String year="";
     private static final String TAG="ResultActivity";
+    private List<Car> carList=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +68,10 @@ public class ResultActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST));
 
         CarSchema carSchema = new CarSchema(this);
+        CarImage carImage = CarImage.getInstance(this);
         Log.d(TAG,String.valueOf(yearArr.length));
         Cursor cursor = carSchema.queryCar(make,model,i_price,i_mileage,yearArr);
-        List<Car> carList = carSchema.getCarList(cursor);
+        carList = carSchema.getCarList(cursor);
         SearchResultAdapter SR = new SearchResultAdapter(this,carList);
 
         SR.setOnItemClickListener(new SearchResultAdapter.OnItemClickListener() {
@@ -75,14 +79,20 @@ public class ResultActivity extends AppCompatActivity {
             public void onItemClick(View view, int position) {
                 Intent getCarIntent = new Intent();
                 //mIntent = getIntent();
+
+                //remember to setImage
+                Car car= carList.get(position);
+                car = CarImage.setImages(car);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("Car",carList.get(position));
+                bundle.putSerializable("Car",car);
                 Log.d(TAG,"Position="+String.valueOf(position));
                 //bundle.putString("car_id",carList.get(position).getCarid());
-                Car testCar = carList.get(position);
-                Log.d(TAG,"Test carid ="+testCar.getImages().get(0).getCarid());
-                Log.d(TAG,"Test imgno="+String.valueOf(testCar.getImages().get(0).getImg_no()));
-                Log.d(TAG,String.valueOf(testCar.getImages().get(0).getImage().length));
+                //Car testCar = carList.get(position);
+                Log.d(TAG,"Test carid ="+car.getCarid());
+                Log.d(TAG,"Test car image size = "+String.valueOf(car.getImages().size()));
+                Log.d(TAG,"Test image carid ="+car.getImages().get(0).getCarid());
+                Log.d(TAG,"Test imgno="+String.valueOf(car.getImages().get(0).getImg_no()));
+                Log.d(TAG,String.valueOf(car.getImages().get(0).getImage().length));
                 getCarIntent.putExtras(bundle);
                 //mIntent.putExtra("car_id",carList.get(position).getCarid());
                 getCarIntent.setClass(ResultActivity.this, CarActivity.class);
@@ -94,5 +104,32 @@ public class ResultActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(SR);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        mIntent = getIntent();
+//        make = mIntent.getStringExtra("make");
+//        model = mIntent.getStringExtra("model");
+//        year = mIntent.getStringExtra("year");
+//        price = mIntent.getStringExtra("price");
+//        mileage = mIntent.getStringExtra("mileage");
+//
+//        try{
+//            i_price=Integer.parseInt(price);
+//        }catch (NumberFormatException ne){
+//            i_price=Constant.MAX_PRICE;
+//        }
+//
+//        try{
+//            i_mileage=Integer.parseInt(mileage);
+//        }catch (NumberFormatException ne){
+//            i_mileage=Constant.MILEAGE;
+//        }
+//        String[] yearArr = PjUtils.getYear(year);
+//        CarSchema carSchema = new CarSchema(this);
+//        Cursor cursor = carSchema.queryCar(make,model,i_price,i_mileage,yearArr);
+//        carList = carSchema.getCarList(cursor);
     }
 }

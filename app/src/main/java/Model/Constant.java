@@ -12,4 +12,5 @@ public final class Constant {
     public static final int SellActivity=777;
     public static final int MAX_PRICE=999999;
     public static final int MILEAGE=999999;
+
 }

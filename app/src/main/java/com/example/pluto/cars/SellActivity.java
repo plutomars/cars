@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.PasswordAuthentication;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +64,7 @@ public class SellActivity extends AppCompatActivity {
     //Make a choice to get an image by using the camera or from the gallery
     private PhotoChoiceWindow choisePhotoPopup;
     private static final int MULTIPLE_PERMISSIONS=10;
+    private static Bitmap defaultImage;
     private final String[] multi_permission = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.CAMERA,
@@ -87,11 +89,32 @@ public class SellActivity extends AppCompatActivity {
     private String make="";
     private String model="";
 
+    private void createDefaultImage(){
+        InputStream is = null;
+        try{
+            is= getAssets().open("Noimage.png");
+            if(is!=null){
+                defaultImage = BitmapFactory.decodeStream(is);
+            }
+        }catch (IOException ie){
+            Log.d(TAG,ie.getMessage());
+        }finally {
+            try{
+                if(is!=null){
+                    is.close();
+                }
+            }catch (IOException ioe){
+                Log.d(TAG,ioe.getMessage());
+            }
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sell);
         ButterKnife.bind(this);
+        createDefaultImage();
 
 
         priceTitle.setText("Price");
@@ -111,10 +134,6 @@ public class SellActivity extends AppCompatActivity {
                 if(checkPermissions()){
                     showChoicePhoto();
                 }
-//                requestReadPermission();
-//                requestCameraPermission();
-//                requestWritePermission();
-
             }
         });
 
@@ -162,6 +181,7 @@ public class SellActivity extends AppCompatActivity {
         Car car = new Car();
 
         int car_id = carSchema.getCarId();
+        Log.d(TAG,"Car_id="+String.valueOf(car_id));
         car.setCarid(String.valueOf(car_id));
         car.setMake(makeInfo.getText().toString());
         car.setModel(modelInfo.getText().toString());
@@ -172,6 +192,15 @@ public class SellActivity extends AppCompatActivity {
         List<MyImage> imageList = new ArrayList<>();
 
         Log.d(TAG,"data size"+String.valueOf(data.size()));
+        if(data.size()==1){
+            data.remove(data.size() - 1);
+            Bitmap bp = BitmapFactory.decodeResource(getResources(), R.drawable.ic_addpic);
+            Log.d(TAG,String.valueOf(defaultImage==null));
+            data.add(defaultImage);
+            data.add(bp);
+            //data.remove(0);
+            //data.add(0,defaultImage);
+        }
 
         for(int i =0;i<data.size()-1;i++){
             byte[] bytes = BitmapUtils.BitmapToBytes(data.get(i));
