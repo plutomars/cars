@@ -1,5 +1,9 @@
 package com.example.pluto.cars;
+<<<<<<< Updated upstream
 
+=======
+#testing2
+>>>>>>> Stashed changes
 import org.junit.Test;
 
 import static org.junit.Assert.*;
